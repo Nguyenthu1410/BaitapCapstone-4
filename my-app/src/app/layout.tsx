@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "../components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,12 +24,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en">
+      <body className="antialiased">
+        {/* 2. Đặt Navbar ở ĐÂY (phía trên children) */}
+        <Navbar /> 
+
+        {/* 3. children chính là nội dung thay đổi của từng trang (Home, Courses, Detail...) */}
+        <main>
+            {children}
+        </main>
+        
+        {/* Bạn cũng có thể đặt Footer ở dưới này nếu muốn nó hiện ở mọi trang */}
+      </body>
     </html>
   );
 }
