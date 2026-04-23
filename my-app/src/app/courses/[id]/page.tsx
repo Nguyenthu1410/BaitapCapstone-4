@@ -7,14 +7,12 @@ export default async function CourseDetailPage({
   params: { id: string };
 }) {
   try {
-    const courses = await courseService.getList();
-    const course = courses.find((course) => course.maKhoaHoc === params.id);
+    const course = await courseService.getDetail(params.id);
     if (!course) return notFound();
 
     return (
       <div className="container mx-auto px-6 py-12">
         <div className="flex flex-col lg:flex-row gap-12">
-          {/* Hình ảnh khóa học */}
           <div className="lg:w-2/3">
             <img
               src={course.hinhAnh}
@@ -29,7 +27,6 @@ export default async function CourseDetailPage({
             </p>
           </div>
 
-          {/* Cột thông tin đăng ký */}
           <div className="lg:w-1/3">
             <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 sticky top-24">
               <p className="text-3xl font-bold text-blue-600 mb-6">
