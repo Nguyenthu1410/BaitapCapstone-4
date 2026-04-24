@@ -5,16 +5,15 @@ import { fetcher } from "./apiClients";
 
 export const courseService = {
   getList: (tenKhoaHoc: string = "") => {
-    return fetcher<Course[]>(ENDPOINTS.LAY_DANH_SACH_KHOA_HOC, {
-      MaNhom: MA_NHOM,
-      ...(tenKhoaHoc && { tenKhoaHoc })
-    });
+    const url = tenKhoaHoc
+      ? `${ENDPOINTS.LAY_DANH_SACH_KHOA_HOC}&tenKhoaHoc=${encodeURIComponent(tenKhoaHoc)}`
+      : ENDPOINTS.LAY_DANH_SACH_KHOA_HOC;
+    return fetcher<Course[]>(url);
   },
 
   getDetail: (maKhoaHoc: string) => {
-    return fetcher<Course>(ENDPOINTS.LAY_THONG_TIN_KHOA_HOC, {
-      maKhoaHoc: maKhoaHoc
-    });
+    const url = `${ENDPOINTS.LAY_THONG_TIN_KHOA_HOC}?maKhoaHoc=${maKhoaHoc}`;
+    return fetcher<Course>(url);
   },
 
   getCategories: () => {
