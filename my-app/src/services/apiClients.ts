@@ -13,8 +13,7 @@ export const fetcher = async <T>(
   const res = await fetch(url.toString(), {
     next: { revalidate: 3600 },
     headers: {
-      // BẮT BUỘC: Bạn phải điền đúng TokenCybersoft mà trung tâm cấp vào đây
-      "TokenCybersoft": "BỎ_TOKEN_CỦA_BẠN_VÀO_ĐÂY", 
+      "TokenCybersoft": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA4OCIsIkhldEhhblN0cmluZyI6IjIwLzA5LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc4OTg2MjQwMDAwMCIsIm5iZiI6MTc2MDAyOTIwMCwiZXhwIjoxNzkwMDEwMDAwfQ.EeWR303-_B1UvS0JNqgB9-oekCYMonI_KPT2LceiOb8", 
       "Content-Type": "application/json",
     },
   });

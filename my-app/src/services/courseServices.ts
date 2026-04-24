@@ -11,7 +11,6 @@ export const courseService = {
     });
   },
 
-  // THÊM HÀM NÀY VÀO
   getDetail: (maKhoaHoc: string) => {
     return fetcher<Course>(ENDPOINTS.LAY_THONG_TIN_KHOA_HOC, {
       maKhoaHoc: maKhoaHoc
