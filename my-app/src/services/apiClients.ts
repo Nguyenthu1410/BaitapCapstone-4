@@ -1,5 +1,3 @@
-// src/services/apiClients.ts
-
 export const fetcher = async <T>(
   endpoint: string,
   params: Record<string, string> = {},
@@ -16,7 +14,7 @@ export const fetcher = async <T>(
     url = endpoint;
   }
 
-  console.log('API URL:', url); // Debug log
+  console.log('API URL:', url); 
 
   const res = await fetch(url, {
     next: { revalidate: 3600 },
@@ -27,8 +25,7 @@ export const fetcher = async <T>(
   });
 
   if (!res.ok) {
-    console.log('API Error:', res.status, res.statusText); // Debug log
-    // Nếu vẫn lỗi, nó sẽ hiện mã lỗi cụ thể ở đây (ví dụ: Lỗi api: 403)
+    console.log('API Error:', res.status, res.statusText);
     throw new Error(`Lỗi api: ${res.status}`);
   }
 

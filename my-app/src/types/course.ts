@@ -18,3 +18,10 @@ export interface Course {
 
     };
 }
+
+export interface Category {
+    maDanhMuc: string | number,
+    tenDanhMuc: string,
+    courses: Course[],
+
+}

@@ -18,6 +18,6 @@ export const courseService = {
 
   getCategories: () => {
     const url = `${ENDPOINTS.LAY_DANH_MUC_KHOA_HOC}`
-    return fetcher <Course>(url);
+    return fetcher<any[]>(url);
   }
 };
