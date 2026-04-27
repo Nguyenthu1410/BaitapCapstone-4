@@ -1,4 +1,3 @@
-// src/services/courseServices.ts
 import { ENDPOINTS, MA_NHOM } from "../constant/api";
 import { Course } from "../types/course";
 import { fetcher } from "./apiClients";
