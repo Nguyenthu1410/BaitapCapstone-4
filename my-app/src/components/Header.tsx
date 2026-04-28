@@ -160,7 +160,7 @@ const Header: React.FC = () => {
         <Link href={PUBLIC_PATH.HOME} className="flex items-center group cursor-pointer select-none">
           <div className="flex items-baseline italic">
             <span className="text-3xl font-black tracking-tighter text-[#1a73e8] group-hover:scale-105 transition-transform">E-</span>
-            <span className="text-2xl font-extrabold tracking-[0.15em] bg-gradient-to-r from-[#1a73e8] to-blue-400 bg-clip-text text-transparent uppercase">
+            <span className="text-2xl font-extrabold tracking-[0.15em] bg-linear-to-r from-[#1a73e8] to-blue-400 bg-clip-text text-transparent uppercase">
               Learning
             </span>
           </div>

@@ -21,6 +21,9 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
               'https://via.placeholder.com/400x250/4f46e5/ffffff?text=Course+Image';
           }}
         />
+        <div className="absolute top-3 right-3 bg-linear-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
+          HOT
+        </div>
         {course.danhMucKhoaHoc?.tenDanhMucKhoaHoc && (
           <div className="absolute top-3 left-3 bg-black/70 text-white text-xs px-2 py-1 rounded">
             {course.danhMucKhoaHoc.tenDanhMucKhoaHoc}

@@ -140,7 +140,7 @@ const HomePage = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
 
         {/* --- SIDEBAR BÊN TRÁI: DANH MỤC --- */}
-         <aside className="md:col-span-3 space-y-6">
+        <aside className="md:col-span-3 space-y-6">
           <div className="bg-white p-6 shadow-sm border-t-4 border-[#00a2e8] rounded-lg">
             <h3 className="text-[#00a2e8] font-bold text-sm uppercase mb-4">
               Danh mục khóa học
@@ -160,6 +160,7 @@ const HomePage = () => {
 
               {categories.map((cat: Category) => {
                 const isActive = selectedCategory === cat.maDanhMuc;
+                const courseCount = cat.courses?.length || 0;
 
                 return (
                   <button
@@ -173,12 +174,16 @@ const HomePage = () => {
                     }`}
                   >
                     <div className="font-semibold uppercase text-sm">{cat.tenDanhMuc}</div>
+                    <div className={`mt-1 text-xs ${isActive ? 'text-[#1a73e8]' : 'text-gray-400'}`}>
+                      {courseCount} khóa học
+                    </div>
                   </button>
                 );
               })}
             </div>
           </div>
         </aside>
+
         {/* --- DANH SÁCH KHÓA HỌC (9 Cột) --- */}
         <main className="md:col-span-9">
           <div className="mb-6 border-b pb-4 border-gray-200">

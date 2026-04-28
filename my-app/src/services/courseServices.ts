@@ -4,7 +4,7 @@ import { fetcher } from "./apiClients";
 
 export const courseService = {
   getList: (tenKhoaHoc: string = "") =>
-    fetcher<Course[]>(ENDPOINTS.LAY_DANH_SACH_KHOA_HOC, {
+    fetcher<Course[]>(ENDPOINTS.TIM_KIEM_KHOA_HỌC, {
       maNhom: MA_NHOM,
       ...(tenKhoaHoc.trim() ? { tenKhoaHoc: tenKhoaHoc.trim() } : {}),
     }),
