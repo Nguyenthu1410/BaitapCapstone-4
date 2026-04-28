@@ -25,3 +25,7 @@ export interface Category {
     courses: Course[],
 
 }
+
+export interface CourseCardProps {
+    course: Course;
+}

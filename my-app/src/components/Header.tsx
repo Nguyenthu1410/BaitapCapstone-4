@@ -1,25 +1,128 @@
-import React from 'react';
-import { Search, Phone, Mail, User, Key, Home, Star, Globe, Book, BarChart3, UserSquare2, ShoppingCart, ChevronDown } from 'lucide-react';
+'use client';
 
-const Header = () => {
+import * as React from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import {
+  Search,
+  Phone,
+  Mail,
+  Home,
+  Star,
+  Globe,
+  Book,
+  BarChart3,
+  UserSquare2,
+  ShoppingCart,
+  ChevronDown,
+} from 'lucide-react';
+import { PUBLIC_PATH } from '@/src/constant/path';
+const Header: React.FC = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentKeyword = searchParams.get('keyword') || '';
+  const keywordRef = React.useRef(currentKeyword);
+  const debounceRef = React.useRef<number | null>(null);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+
+  const navigateWithKeyword = React.useCallback(
+    (rawKeyword: string, method: 'push' | 'replace') => {
+      const kw = rawKeyword.trim();
+      const params = new URLSearchParams(searchParams.toString());
+
+      if (kw) {
+        params.set('keyword', kw);
+      } else {
+        params.delete('keyword');
+      }
+
+      const query = params.toString();
+      const targetPath = '/';
+      const nextUrl = query ? `${targetPath}?${query}` : targetPath;
+      const currentQuery = searchParams.toString();
+      const currentUrl = currentQuery ? `${pathname}?${currentQuery}` : pathname;
+
+      if (nextUrl === currentUrl) return;
+
+      if (method === 'replace') {
+        router.replace(nextUrl);
+        return;
+      }
+
+      router.push(nextUrl);
+    },
+    [pathname, router, searchParams]
+  );
+
+  const handleAutoSearch = React.useCallback(
+    (nextKeyword: string) => {
+      keywordRef.current = nextKeyword;
+
+      if (debounceRef.current !== null) {
+        window.clearTimeout(debounceRef.current);
+      }
+
+      debounceRef.current = window.setTimeout(() => {
+        navigateWithKeyword(nextKeyword, 'replace');
+      }, 300);
+    },
+    [navigateWithKeyword]
+  );
+
+  React.useEffect(() => {
+    keywordRef.current = currentKeyword;
+    if (inputRef.current && document.activeElement !== inputRef.current) {
+      inputRef.current.value = currentKeyword;
+    }
+  }, [currentKeyword]);
+
+  React.useEffect(
+    () => () => {
+      if (debounceRef.current !== null) {
+        window.clearTimeout(debounceRef.current);
+      }
+    },
+    []
+  );
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (debounceRef.current !== null) {
+      window.clearTimeout(debounceRef.current);
+      debounceRef.current = null;
+    }
+    navigateWithKeyword(keywordRef.current, 'push');
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm shadow-sm font-sans transition-all">
-      
+
       {/* -- TOP BAR -- */}
       <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap justify-between items-center text-[12px] text-gray-600">
         <div className="flex items-center space-x-6">
           {/* SEARCH BOX */}
-          <div className="flex items-center border border-gray-200 rounded-full overflow-hidden bg-gray-50 focus-within:ring-1 focus-within:ring-blue-400 transition">
-            <input 
-              type="text" 
-              placeholder="Bạn tìm gì?" 
+          <form
+            onSubmit={handleSearch}
+            className="flex items-center border border-gray-200 rounded-full overflow-hidden bg-gray-50 focus-within:ring-1 focus-within:ring-blue-400 transition"
+          >
+            <input
+              ref={inputRef}
+              type="text"
+              defaultValue={currentKeyword}
+              onChange={(e) => handleAutoSearch(e.target.value)}
+              placeholder="Bạn tìm gì?"
               className="px-4 py-1.5 outline-none w-36 bg-transparent italic"
             />
-            <button className="bg-[#1a73e8] text-white px-4 py-1.5 font-bold hover:bg-blue-700 transition">
+            <button
+              type="submit"
+              className="bg-[#1a73e8] text-white px-4 py-1.5 font-bold hover:bg-blue-700 transition"
+              aria-label="Tìm kiếm"
+            >
               <Search />
             </button>
-          </div>
-          
+          </form>
+
           {/* CONTACT INFO */}
           <div className="hidden md:flex items-center space-x-4">
             <span className="flex items-center gap-1 hover:text-blue-600 cursor-default">
@@ -33,10 +136,16 @@ const Header = () => {
 
         {/* AUTH BUTTON */}
         <div className="flex items-center space-x-2">
-          <button className="flex items-center gap-1.5 bg-[#1a73e8] text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 hover:shadow-md transition-all active:scale-95">
+          <button
+            type="button"
+            className="flex items-center gap-1.5 bg-[#1a73e8] text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 hover:shadow-md transition-all active:scale-95"
+          >
             Đăng Ký
           </button>
-          <button className="flex items-center gap-1.5 bg-[#1a73e8] text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 hover:shadow-md transition-all active:scale-95">
+          <button
+            type="button"
+            className="flex items-center gap-1.5 bg-[#1a73e8] text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 hover:shadow-md transition-all active:scale-95"
+          >
             Đăng Nhập
           </button>
         </div>
@@ -46,9 +155,9 @@ const Header = () => {
 
       {/* -- MAIN NAVIGATION -- */}
       <nav className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        
+
         {/* LOGO TEXT E-LEARNING */}
-        <div className="flex items-center group cursor-pointer select-none">
+        <Link href={PUBLIC_PATH.HOME} className="flex items-center group cursor-pointer select-none">
           <div className="flex items-baseline italic">
             <span className="text-3xl font-black tracking-tighter text-[#1a73e8] group-hover:scale-105 transition-transform">E-</span>
             <span className="text-2xl font-extrabold tracking-[0.15em] bg-gradient-to-r from-[#1a73e8] to-blue-400 bg-clip-text text-transparent uppercase">
@@ -56,28 +165,44 @@ const Header = () => {
             </span>
           </div>
           <div className="ml-1 h-2 w-2 rounded-full bg-orange-500 self-end mb-1.5 animate-pulse"></div>
-        </div>
+        </Link>
 
         {/* MENU LINK */}
         <ul className="hidden lg:flex items-center space-x-6 text-[14px] font-bold text-gray-700 uppercase tracking-tight">
-          <li className="flex items-center gap-1.5 cursor-pointer hover:text-[#1a73e8] transition-colors">
-            <Home size={16} /> Trang chủ
+          <li>
+            <Link href={PUBLIC_PATH.HOME} className="flex items-center gap-1.5 hover:text-[#1a73e8] transition-colors">
+              <Home size={16} /> Trang chủ
+            </Link>
           </li>
-          <li className="flex items-center gap-1.5 cursor-pointer hover:text-[#1a73e8] transition-colors">
-            <Star size={16} /> KH mới
+          <li>
+            <Link href={PUBLIC_PATH.COMING_SOON} className="flex items-center gap-1.5 hover:text-[#1a73e8] transition-colors">
+              <Star size={16} /> KH mới
+            </Link>
           </li>
-          <li className="cursor-pointer hover:text-[#1a73e8] transition-colors">KH tặng kèm</li>
-          <li className="flex items-center gap-1.5 cursor-pointer hover:text-[#1a73e8] transition-colors">
-            <Globe size={16} /> Lộ trình
+          <li>
+            <Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-[#1a73e8] transition-colors">
+              KH tặng kèm
+            </Link>
           </li>
-          <li className="flex items-center gap-1.5 cursor-pointer hover:text-[#1a73e8] transition-colors group relative py-2">
-            <Book size={16} /> Tài liệu <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
+          <li>
+            <Link href={PUBLIC_PATH.COMING_SOON} className="flex items-center gap-1.5 hover:text-[#1a73e8] transition-colors">
+              <Globe size={16} /> Lộ trình
+            </Link>
           </li>
-          <li className="flex items-center gap-1.5 cursor-pointer hover:text-[#1a73e8] transition-colors">
-            <BarChart3 size={16} /> CTV
+          <li>
+            <Link href={PUBLIC_PATH.COMING_SOON} className="flex items-center gap-1.5 hover:text-[#1a73e8] transition-colors group relative py-2">
+              <Book size={16} /> Tài liệu <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
+            </Link>
           </li>
-          <li className="flex items-center gap-1.5 cursor-pointer hover:text-[#1a73e8] transition-colors">
-            <UserSquare2 size={16} /> ELEARINING
+          <li>
+            <Link href={PUBLIC_PATH.COMING_SOON} className="flex items-center gap-1.5 hover:text-[#1a73e8] transition-colors">
+              <BarChart3 size={16} /> CTV
+            </Link>
+          </li>
+          <li>
+            <Link href={PUBLIC_PATH.COMING_SOON} className="flex items-center gap-1.5 hover:text-[#1a73e8] transition-colors">
+              <UserSquare2 size={16} /> ELEARNING
+            </Link>
           </li>
         </ul>
 

@@ -1,11 +1,120 @@
 'use client';
 
+import * as React from 'react';
 import { useCourses } from '../hook/useCourse';
 import { Category, Course } from '../types/course';
-import { Users, Eye, ShoppingCart } from 'lucide-react';
+import CourseCard from './CourseCard';
+import { useSearchParams } from 'next/navigation';
+import { courseService } from '../services/courseServices';
+
+const normalizeKeyword = (value: string) =>
+  value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd');
 
 const HomePage = () => {
-  const { categories, loading, error } = useCourses();
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('keyword')?.trim() || '';
+  const { categories, allCourses, loading, error } = useCourses();
+  const [selectedCategory, setSelectedCategory] = React.useState<Category['maDanhMuc'] | null>(null);
+  const [displayCourses, setDisplayCourses] = React.useState<Course[]>([]);
+  const [categoryLoading, setCategoryLoading] = React.useState(false);
+  const [categoryError, setCategoryError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    setDisplayCourses(allCourses);
+  }, [allCourses]);
+
+  const filteredCourses = React.useMemo(() => {
+    const normalizedKeyword = normalizeKeyword(keyword);
+
+    if (!normalizedKeyword) return displayCourses;
+
+    return displayCourses.filter((course: Course) =>
+      normalizeKeyword(course.tenKhoaHoc).includes(normalizedKeyword)
+    );
+  }, [displayCourses, keyword]);
+
+  const selectedCategoryInfo = React.useMemo(
+    () => categories.find((cat) => cat.maDanhMuc === selectedCategory) || null,
+    [categories, selectedCategory]
+  );
+
+  const filteredCategories = React.useMemo(() => {
+    if (selectedCategoryInfo) {
+      return [
+        {
+          maDanhMuc: selectedCategoryInfo.maDanhMuc,
+          tenDanhMuc: selectedCategoryInfo.tenDanhMuc,
+          courses: filteredCourses,
+        },
+      ];
+    }
+
+    const courseMap = new Map<string, Course[]>();
+    filteredCourses.forEach((course) => {
+      const key = course.danhMucKhoaHoc?.maDanhMucKhoaHoc || 'Khac';
+      if (!courseMap.has(key)) courseMap.set(key, []);
+      courseMap.get(key)?.push(course);
+    });
+
+    const mappedCategories = categories
+      .map((cat) => ({
+        ...cat,
+        courses: courseMap.get(String(cat.maDanhMuc)) || [],
+      }))
+      .filter((cat) => cat.courses.length > 0);
+
+    const otherCourses = courseMap.get('Khac') || [];
+    if (otherCourses.length > 0) {
+      mappedCategories.push({
+        maDanhMuc: 'Khac',
+        tenDanhMuc: 'Khác',
+        courses: otherCourses,
+      });
+    }
+
+    return mappedCategories;
+  }, [categories, filteredCourses, selectedCategoryInfo]);
+
+  const totalCourses = filteredCategories.reduce((total, cat) => total + (cat.courses?.length || 0), 0);
+  const activeCategoryName = selectedCategoryInfo?.tenDanhMuc || 'Tất cả danh mục';
+
+  React.useEffect(() => {
+    if (!selectedCategory) return;
+
+    const categoryExists = categories.some((cat) => cat.maDanhMuc === selectedCategory);
+    if (!categoryExists) {
+      setSelectedCategory(null);
+    }
+  }, [categories, selectedCategory]);
+
+  const handleCategorySelect = React.useCallback(
+    async (category: Category['maDanhMuc'] | null) => {
+      setSelectedCategory(category);
+      setCategoryError(null);
+
+      if (category === null) {
+        setDisplayCourses(allCourses);
+        setCategoryLoading(false);
+        return;
+      }
+
+      try {
+        setCategoryLoading(true);
+        const courses = await courseService.getCoursesByCategory(String(category));
+        setDisplayCourses(courses);
+      } catch (err) {
+        setCategoryError(err instanceof Error ? err.message : 'Không thể tải khóa học theo danh mục.');
+        setDisplayCourses([]);
+      } finally {
+        setCategoryLoading(false);
+      }
+    },
+    [allCourses]
+  );
 
   if (loading) return (
     <section className="max-w-7xl mx-auto px-4 py-16 bg-[#f4f7f9]">
@@ -31,96 +140,87 @@ const HomePage = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
 
         {/* --- SIDEBAR BÊN TRÁI: DANH MỤC --- */}
-        <aside className="md:col-span-3 space-y-6">
-          {categories.map((cat: Category) => (
-            <div key={cat.maDanhMuc} className="bg-white p-6 shadow-sm border-t-4 border-[#00a2e8] rounded-lg">
-              <h3 className="text-[#00a2e8] font-bold text-sm uppercase mb-4">
-                {cat.tenDanhMuc}
-              </h3>
-              <ul className="space-y-3">
-                {cat.courses?.map((course: Course) => (
-                  <li key={course.maKhoaHoc} className="group flex items-start gap-2 cursor-pointer">
-                    <span className="w-1.5 h-1.5 bg-gray-300 rounded-full mt-2 group-hover:bg-blue-500 transition-colors" />
-                    <span className="text-gray-600 text-sm group-hover:text-blue-600 transition-colors line-clamp-2">
-                      {course.tenKhoaHoc}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </aside>
+         <aside className="md:col-span-3 space-y-6">
+          <div className="bg-white p-6 shadow-sm border-t-4 border-[#00a2e8] rounded-lg">
+            <h3 className="text-[#00a2e8] font-bold text-sm uppercase mb-4">
+              Danh mục khóa học
+            </h3>
+            <div className="space-y-3">
+              <button
+                type="button"
+                onClick={() => handleCategorySelect(null)}
+                className={`w-full rounded-lg border px-4 py-3 text-left text-sm font-medium transition ${
+                  selectedCategory === null
+                    ? 'border-[#1a73e8] bg-blue-50 text-[#1a73e8]'
+                    : 'border-gray-200 text-gray-600 hover:border-blue-200 hover:text-blue-600'
+                }`}
+              >
+                Tất cả danh mục
+              </button>
 
+              {categories.map((cat: Category) => {
+                const isActive = selectedCategory === cat.maDanhMuc;
+
+                return (
+                  <button
+                    key={cat.maDanhMuc}
+                    type="button"
+                    onClick={() => handleCategorySelect(cat.maDanhMuc)}
+                    className={`w-full rounded-lg border px-4 py-3 text-left transition ${
+                      isActive
+                        ? 'border-[#1a73e8] bg-blue-50 text-[#1a73e8]'
+                        : 'border-gray-200 text-gray-600 hover:border-blue-200 hover:text-blue-600'
+                    }`}
+                  >
+                    <div className="font-semibold uppercase text-sm">{cat.tenDanhMuc}</div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </aside>
         {/* --- DANH SÁCH KHÓA HỌC (9 Cột) --- */}
         <main className="md:col-span-9">
           <div className="mb-6 border-b pb-4 border-gray-200">
-            <h2 className="text-2xl font-black text-slate-800 uppercase">Tất cả khóa học</h2>
+            <h2 className="text-2xl font-black text-slate-800 uppercase">{activeCategoryName}</h2>
             <p className="text-gray-500 text-sm mt-1">
-              {categories.reduce((total, cat) => total + (cat.courses?.length || 0), 0)} khóa học
+              {keyword
+                ? `Kết quả cho "${keyword}" trong ${activeCategoryName}: ${totalCourses} khóa học`
+                : `${activeCategoryName}: ${totalCourses} khóa học`}
             </p>
           </div>
 
+          {categoryLoading ? (
+            <div className="mb-6 rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-700">
+              Đang tải khóa học theo danh mục...
+            </div>
+          ) : null}
+
+          {categoryError ? (
+            <div className="mb-6 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+              {categoryError}
+            </div>
+          ) : null}
+
           {/* Grid hiển thị tất cả khóa học */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.map((cat: Category) =>
-              cat.courses?.map((course: Course) => (
-                <div
-                  key={course.maKhoaHoc}
-                  className="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1"
-                >
-                  {/* Hình ảnh */}
-                  <div className="relative h-48 overflow-hidden bg-gray-200">
-                    <img
-                      src={course.hinhAnh}
-                      alt={course.tenKhoaHoc}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      onError={(e) => {
-                        e.currentTarget.src = 'https://via.placeholder.com/400x250/4f46e5/ffffff?text=Course+Image';
-                      }}
-                    />
-                    <div className="absolute top-3 right-3 bg-linear-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
-                      HOT
-                    </div>
-                    <div className="absolute top-3 left-3 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                      {course.danhMucKhoaHoc?.tenDanhMucKhoaHoc}
-                    </div>
-                  </div>
-
-                  {/* Nội dung Card */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <h4 className="font-bold text-slate-800 text-base line-clamp-2 mb-3 h-12 group-hover:text-blue-600 transition-colors leading-tight">
-                      {course.tenKhoaHoc}
-                    </h4>
-
-                    <p className="text-gray-600 text-sm line-clamp-2 mb-4 flex-1">
-                      {course.moTa || 'Khám phá những kỹ năng mới cùng chuyên gia hàng đầu...'}
-                    </p>
-
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <div className="flex items-center gap-1">
-                        <Users size={16} className="text-blue-500" />
-                        <span>{course.soLuongHocVien || 0} học viên</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Eye size={16} className="text-orange-500" />
-                        <span>{course.luotXem || 0}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2">
-                      <button className="flex-1 flex items-center justify-center gap-2 py-2 bg-blue-600 text-white font-semibold text-sm rounded-lg hover:bg-blue-700 transition-all hover:shadow-md">
-                        <ShoppingCart size={16} />
-                        Đăng ký học
-                      </button>
-                      <button className="px-3 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors">
-                        <Eye size={16} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
+          {totalCourses === 0 ? (
+            <div className="rounded-xl border border-dashed border-gray-300 bg-white p-10 text-center">
+              <h3 className="text-lg font-semibold text-slate-800">Không tìm thấy khóa học phù hợp</h3>
+              <p className="mt-2 text-sm text-gray-500">
+                {selectedCategory
+                  ? `Danh mục ${activeCategoryName} hiện không có khóa học khớp với từ khóa bạn đang tìm.`
+                  : 'Thử đổi từ khóa khác để tìm đúng khóa học bạn cần.'}
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredCategories.map((cat: Category) =>
+                cat.courses?.map((course: Course) => (
+                  <CourseCard key={course.maKhoaHoc} course={course} />
+                ))
+              )}
+            </div>
+          )}
         </main>
 
       </div>
