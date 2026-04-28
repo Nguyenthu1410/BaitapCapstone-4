@@ -160,8 +160,6 @@ const HomePage = () => {
 
               {categories.map((cat: Category) => {
                 const isActive = selectedCategory === cat.maDanhMuc;
-                const courseCount = cat.courses?.length || 0;
-
                 return (
                   <button
                     key={cat.maDanhMuc}
@@ -174,9 +172,6 @@ const HomePage = () => {
                     }`}
                   >
                     <div className="font-semibold uppercase text-sm">{cat.tenDanhMuc}</div>
-                    <div className={`mt-1 text-xs ${isActive ? 'text-[#1a73e8]' : 'text-gray-400'}`}>
-                      {courseCount} khóa học
-                    </div>
                   </button>
                 );
               })}
@@ -207,7 +202,6 @@ const HomePage = () => {
             </div>
           ) : null}
 
-          {/* Grid hiển thị tất cả khóa học */}
           {totalCourses === 0 ? (
             <div className="rounded-xl border border-dashed border-gray-300 bg-white p-10 text-center">
               <h3 className="text-lg font-semibold text-slate-800">Không tìm thấy khóa học phù hợp</h3>

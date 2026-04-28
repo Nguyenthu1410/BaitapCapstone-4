@@ -2,11 +2,7 @@
 
 import * as React from 'react';
 import { Users, Eye, ShoppingCart } from 'lucide-react';
-import { Course } from '../types/course';
-
-interface CourseCardProps {
-  course: Course;
-}
+import { CourseCardProps } from '../types/course';
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   return (
