@@ -29,3 +29,7 @@ export interface Category {
 export interface CourseCardProps {
     course: Course;
 }
+
+export interface Props {
+  course: Course;
+}
