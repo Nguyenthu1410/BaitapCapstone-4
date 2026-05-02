@@ -16,12 +16,14 @@ export const courseService = {
     }),
 
   getDetail: (maKhoaHoc: string) => {
-    const url = `${ENDPOINTS.LAY_THONG_TIN_KHOA_HOC}?maKhoaHoc=${maKhoaHoc}`;
-    return fetcher<Course>(url);
+    return fetcher<Course>(ENDPOINTS.LAY_THONG_TIN_KHOA_HOC, { 
+      maKhoaHoc: maKhoaHoc 
+    });
   },
+  
 
   getCategories: () => {
     const url = `${ENDPOINTS.LAY_DANH_MUC_KHOA_HOC}`;
     return fetcher<any[]>(url);
   },
-};
+}

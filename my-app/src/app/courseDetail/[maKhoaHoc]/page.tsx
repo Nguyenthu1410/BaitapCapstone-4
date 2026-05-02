@@ -5,11 +5,11 @@ import { useParams } from 'next/navigation';
 import { useCourseDetail } from '@/src/hook/useCourseDetail';
 import CourseDetail from '@/src/components/CourseDetail';
 
+
 export default function CourseDetailPage() {
   const params = useParams();
-  const maKhoaHoc = params.maKhoaHoc as string;
+  const maKhoaHoc = decodeURIComponent(params.maKhoaHoc as string).trim();
   
-  // Sử dụng custom hook để lấy dữ liệu
   const { course, loading, error } = useCourseDetail(maKhoaHoc);
 
   if (loading) return (
@@ -24,6 +24,5 @@ export default function CourseDetailPage() {
     </div>
   );
 
-  // Truyền dữ liệu vào layout
   return <CourseDetail course={course} />;
 }

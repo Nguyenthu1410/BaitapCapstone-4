@@ -1,9 +1,9 @@
 'use client';
 
 import * as React from 'react';
-import { Users, Eye, ShoppingCart, Link } from 'lucide-react';
+import { Users, Eye, ShoppingCart } from 'lucide-react';
 import { CourseCardProps } from '../types/course';
-
+import Link from 'next/link';
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   return (
     <div className="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
@@ -41,12 +41,6 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
             <Users size={16} className="text-blue-500" />
             <span>{course.soLuongHocVien || 0} học viên</span>
           </div>
-          <Link 
-            href={`/courseDetail/${course.maKhoaHoc}`} 
-            className="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <Eye size={16} /> {/* */}
-          </Link>
         </div>
 
         <div className="flex gap-2">
@@ -54,9 +48,12 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
             <ShoppingCart size={16} />
             Đăng ký học
           </button>
-          <button className="px-3 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors">
+          <Link 
+            href={`/courseDetail/${encodeURIComponent(course.maKhoaHoc)}`} 
+            className="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"
+          >
             <Eye size={16} />
-          </button>
+          </Link>
         </div>
       </div>
     </div>

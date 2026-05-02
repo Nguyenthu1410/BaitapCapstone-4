@@ -7,7 +7,7 @@ const CourseDetail: React.FC<Props> = ({ course }) => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Phần hình ảnh */}
+        {/* HÌNH ẢNH */}
         <div className="md:w-1/2">
           <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
             <img
@@ -21,9 +21,9 @@ const CourseDetail: React.FC<Props> = ({ course }) => {
           </div>
         </div>
 
-        {/* Phần nội dung chi tiết */}
+        {/* NỘI DUNG CHI TIẾT */}
         <div className="md:w-1/2 flex flex-col justify-center">
-          <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 font-semibold rounded-full w-max text-sm mb-4">
+          <span className="inline-block p-5 bg-blue-100 text-blue-700 font-semibold rounded-full w-max text-4xl mb-4">
             {course.danhMucKhoaHoc?.tenDanhMucKhoaHoc}
           </span>
 
@@ -53,7 +53,7 @@ const CourseDetail: React.FC<Props> = ({ course }) => {
           </div>
 
           <h3 className="text-xl font-bold text-slate-800 mb-2">Mô tả</h3>
-          <p className="text-gray-600 leading-relaxed mb-8">{course.moTa}</p>
+          <p className="text-black leading-relaxed mb-8">{course.moTa}</p>
 
           <button className="flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all shadow-md">
             <ShoppingCart size={20} />
