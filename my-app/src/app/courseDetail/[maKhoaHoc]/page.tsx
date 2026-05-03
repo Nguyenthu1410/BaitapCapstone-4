@@ -23,6 +23,6 @@ export default function CourseDetailPage() {
       {error || "Không tìm thấy khóa học"}
     </div>
   );
-
+  console.log("Data chi tiết khóa học:", course);
   return <CourseDetail course={course} />;
 }

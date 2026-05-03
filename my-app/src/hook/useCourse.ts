@@ -33,8 +33,6 @@ export const useCourses = () => {
           tenDanhMuc: cat.tenDanhMuc,
           courses: courseMap.get(cat.maDanhMuc) || []
         }));
-
-        // Add category for courses without danhMuc
         const khacCourses = courseMap.get('Khac') || [];
         if (khacCourses.length > 0) {
           mappedData.push({
@@ -58,3 +56,4 @@ export const useCourses = () => {
 
   return { categories, allCourses, loading, error };
 };
+

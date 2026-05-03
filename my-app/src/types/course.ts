@@ -33,3 +33,11 @@ export interface CourseCardProps {
 export interface Props {
   course: Course;
 }
+
+export interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  itemsPerPage: number;
+  onItemsPerPageChange: (items: number) => void; // <--- KIỂM TRA DÒNG NÀY CÓ CHƯA
+}

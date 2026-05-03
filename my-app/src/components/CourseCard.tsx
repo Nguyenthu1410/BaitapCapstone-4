@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { Users, Eye, ShoppingCart } from 'lucide-react';
-import { CourseCardProps } from '../types/course';
-import Link from 'next/link';
+import * as React from "react";
+import { Users, Eye, ShoppingCart } from "lucide-react";
+import { CourseCardProps } from "../types/course";
+import Link from "next/link";
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
+  const safeMaKhoaHoc = course?.maKhoaHoc?.trim();
   return (
     <div className="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
       <div className="relative h-48 overflow-hidden bg-gray-200">
@@ -13,13 +14,11 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           alt={course.tenKhoaHoc}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           onError={(e) => {
+            e.currentTarget.onerror = null;
             e.currentTarget.src =
-              'https://via.placeholder.com/400x250/4f46e5/ffffff?text=Course+Image';
+              "https://cdn.schoolblocks.com/organizations/e98f255f-6c8e-434f-bf98-276de11abf0d/terraces/25538/online-courses.png";
           }}
         />
-        <div className="absolute top-3 right-3 bg-linear-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
-          HOT
-        </div>
         {course.danhMucKhoaHoc?.tenDanhMucKhoaHoc && (
           <div className="absolute top-3 left-3 bg-black/70 text-white text-xs px-2 py-1 rounded">
             {course.danhMucKhoaHoc.tenDanhMucKhoaHoc}
@@ -33,7 +32,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         </h4>
 
         <p className="text-gray-600 text-sm line-clamp-2 mb-4 flex-1">
-          {course.moTa || 'Khám phá những kỹ năng mới cùng chuyên gia hàng đầu...'}
+          {course.moTa ||
+            "Khám phá những kỹ năng mới cùng chuyên gia hàng đầu..."}
         </p>
 
         <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
@@ -48,8 +48,20 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
             <ShoppingCart size={16} />
             Đăng ký học
           </button>
-          <Link 
-            href={`/courseDetail/${encodeURIComponent(course.maKhoaHoc)}`} 
+          <Link
+            href={
+              safeMaKhoaHoc
+                ? `/courseDetail/${encodeURIComponent(safeMaKhoaHoc)}`
+                : "#"
+            }
+            onClick={(e) => {
+              if (!safeMaKhoaHoc) {
+                e.preventDefault();
+                alert(
+                  "Khóa học này đang bị lỗi dữ liệu (không có mã khóa học)!",
+                );
+              }
+            }}
             className="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"
           >
             <Eye size={16} />

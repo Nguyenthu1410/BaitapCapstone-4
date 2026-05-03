@@ -2,16 +2,20 @@ export const fetcher = async <T>(
   endpoint: string,
   params: Record<string, string> = {},
 ): Promise<T> => {
-  let url: string;
+  let url = endpoint;
 
+  // Cách mới: Dùng URLSearchParams thay vì new URL()
   if (Object.keys(params).length > 0) {
-    const urlObj = new URL(endpoint);
+    const searchParams = new URLSearchParams();
     Object.entries(params).forEach(([key, value]) => {
-      if (value) urlObj.searchParams.append(key, value);
+      if (value) searchParams.append(key, value);
     });
-    url = urlObj.toString();
-  } else {
-    url = endpoint;
+    
+    const queryString = searchParams.toString();
+    if (queryString) {
+      // Ghép param vào sau dấu ?
+      url = `${endpoint}?${queryString}`;
+    }
   }
 
   console.log('API URL:', url); 
@@ -19,6 +23,7 @@ export const fetcher = async <T>(
   const res = await fetch(url, {
     next: { revalidate: 3600 },
     headers: {
+      // BẠN NHỚ GIỮ NGUYÊN ĐOẠN TOKEN CYBERSOFT CỦA BẠN Ở ĐÂY NHÉ
       "TokenCybersoft": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA4OCIsIkhldEhhblN0cmluZyI6IjIwLzA5LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc4OTg2MjQwMDAwMCIsIm5iZiI6MTc2MDAyOTIwMCwiZXhwIjoxNzkwMDEwMDAwfQ.EeWR303-_B1UvS0JNqgB9-oekCYMonI_KPT2LceiOb8", 
       "Content-Type": "application/json",
     },

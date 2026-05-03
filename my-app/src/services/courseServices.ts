@@ -17,7 +17,7 @@ export const courseService = {
 
   getDetail: (maKhoaHoc: string) => {
     return fetcher<Course>(ENDPOINTS.LAY_THONG_TIN_KHOA_HOC, { 
-      maKhoaHoc: maKhoaHoc 
+      maKhoaHoc: maKhoaHoc.trim() 
     });
   },
   

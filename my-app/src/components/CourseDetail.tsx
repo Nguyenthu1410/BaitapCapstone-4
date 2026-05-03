@@ -15,7 +15,7 @@ const CourseDetail: React.FC<Props> = ({ course }) => {
               alt={course.tenKhoaHoc}
               className="w-full h-auto object-cover"
               onError={(e) => {
-                e.currentTarget.src = "https://via.placeholder.com/600x400";
+                e.currentTarget.src = "https://cdn.schoolblocks.com/organizations/e98f255f-6c8e-434f-bf98-276de11abf0d/terraces/25538/online-courses.png";
               }}
             />
           </div>
