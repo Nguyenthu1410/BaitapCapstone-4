@@ -3,7 +3,7 @@
 import * as React from "react";
 import CourseCard from "./CourseCard";
 import { Category, Course } from "../types/course";
-import { useCourseHomePage } from "../hook/useCourseHomePage";
+import { useCourseList } from "../hook/useCourseList";
 import Pagination from "./Pagination";
 
 const CourseList = () => {
@@ -19,7 +19,7 @@ const CourseList = () => {
     categoryLoading,
     categoryError,
     filteredCategories,
-  } = useCourseHomePage();
+  } = useCourseList();
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [itemsPerPage, setItemsPerPage] = React.useState(12);

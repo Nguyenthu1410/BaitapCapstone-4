@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useCourses } from '../hook/useCourse'; // Sửa lại đường dẫn nếu cần
+import { useCourses } from './useCourse'; // Sửa lại đường dẫn nếu cần
 import { courseService } from '../services/courseServices';
 import { Category, Course } from '../types/course';
 
@@ -12,7 +12,7 @@ const normalizeKeyword = (value: string) =>
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/đ/g, 'd');
 
-export const useCourseHomePage = () => {
+export const useCourseList = () => {
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword')?.trim() || '';
   
