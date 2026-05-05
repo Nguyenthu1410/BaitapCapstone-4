@@ -22,8 +22,6 @@ export default function HomePage() {
 
   return (
     <div className="bg-slate-50 min-h-screen text-slate-800 font-sans overflow-hidden relative">
-      
-      {/* Background Glowing Blobs (Có hiệu ứng trôi nổi nhẹ) */}
       <motion.div 
         animate={{ y: [0, -20, 0], scale: [1, 1.05, 1] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -36,7 +34,7 @@ export default function HomePage() {
       />
 
       {/* SECTION 1: HERO */}
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 flex flex-col items-center text-center">
+      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 p-28 pb-20 flex flex-col items-center text-center">
         <motion.div 
           initial="hidden" animate="visible" variants={staggerContainer}
           className="flex flex-col items-center"
@@ -99,72 +97,6 @@ export default function HomePage() {
           </div>
         </motion.div>
       </section>
-
-      {/* SECTION 3: TRENDING COURSES
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <motion.div 
-          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}
-          className="flex flex-col md:flex-row justify-between items-end mb-12"
-        >
-          <div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900">
-              Khóa Học <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Nổi Bật</span>
-            </h2>
-            <p className="text-slate-500 mt-4 text-lg">Những khóa học được đăng ký nhiều nhất tuần qua.</p>
-          </div>
-          <Link href="/course" className="hidden md:inline-flex text-blue-600 font-semibold hover:text-blue-800 transition-colors items-center">
-            Xem tất cả <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-          </Link>
-        </motion.div>
-
-        <motion.div 
-          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {[
-            { 
-              title: "Backend 54", 
-              image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-            },
-            { 
-              title: "Test FrontEnd", 
-              image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-            },
-            { 
-              title: "Lập trình full stack 123", 
-              image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-            }
-          ].map((course, idx) => (
-            <motion.div variants={fadeUp} key={idx} className="bg-white rounded-3xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(59,130,246,0.12)] hover:-translate-y-2 transition-all duration-300 border border-slate-100 group cursor-pointer">
-              
-              <div className="h-48 rounded-2xl mb-6 relative overflow-hidden bg-slate-100">
-                <img 
-                  src={course.image} 
-                  alt={course.title} 
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition-colors duration-300"></div>
-              </div>
-
-              <div className="px-2">
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">{course.title}</h3>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-3 py-1 bg-slate-100 text-slate-600 text-sm font-medium rounded-lg">24 Bài giảng</span>
-                  <span className="px-3 py-1 bg-slate-100 text-slate-600 text-sm font-medium rounded-lg">8 Giảng viên</span>
-                </div>
-                <div className="flex items-center justify-between mt-6 pt-4 border-t border-slate-100">
-                  <div className="flex items-center text-amber-400">
-                    ★★★★★ <span className="text-slate-400 text-sm ml-2">(2,367)</span>
-                  </div>
-                  <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section> */}
 
       {/* SECTION 3: TRENDING COURSES */}
       <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -294,10 +226,10 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* FOOTER */}
+      {/* FOOTER
       <footer className="border-t border-slate-200 py-10 bg-white relative z-10 text-center">
         <p className="font-medium text-slate-500">© 2026 E-LEARNING. Nâng tầm tri thức Việt.</p>
-      </footer>
+      </footer> */}
 
     </div>
   );

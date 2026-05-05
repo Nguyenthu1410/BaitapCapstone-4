@@ -1,97 +1,82 @@
-'use client'
-
 import React from 'react';
-import { 
-  FacebookFilled, 
-  InstagramOutlined, 
-  YoutubeFilled, 
-  TwitterOutlined,
-  EnvironmentOutlined,
-  PhoneOutlined,
-  MailOutlined
-} from '@ant-design/icons';
+import Link from 'next/link';
+import { PUBLIC_PATH } from '../constant/path';
 
-const Footer = () => {
-  const titleClass = "text-lg font-bold text-white mb-6 uppercase tracking-wider";
-  const linkClass = "text-gray-400 hover:text-orange-500 transition-colors duration-300 block mb-3 text-sm";
-  const iconClass = "text-xl text-gray-400 hover:text-white transition-colors duration-300 cursor-pointer";
-
+export default function Footer() {
   return (
-    <footer className="bg-slate-950 text-gray-300 border-t border-gray-800">
-      <div className="container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
+    <footer className="bg-white border-t border-slate-200 py-16 font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           
-          <div className="col-span-1 md:col-span-1">
-            <a href="/" className="text-3xl font-black text-white flex items-center gap-2 mb-6">
-              <span className="text-orange-500">MOVIE</span>STARS
-            </a>
-            <p className="text-sm text-gray-400 leading-relaxed mb-6">
-              Nền tảng đặt vé xem phim trực tuyến hàng đầu Việt Nam. Mang đến cho bạn trải nghiệm điện ảnh tuyệt vời nhất với hàng ngàn bộ phim hot và rạp chiếu trên toàn quốc.
+          <div className="flex flex-col">
+            <Link href="/" className="flex items-center text-3xl font-medium tracking-wide text-slate-800 mb-10">
+              <span className="text-blue-500 font-semibold mr-[1px]">E</span>- Learning
+            </Link>
+            
+            <p className="text-slate-700 font-medium mb-4">
+              Connect with us
             </p>
-
-            <div className="flex items-center gap-5">
-              <FacebookFilled className={iconClass} />
-              <InstagramOutlined className={iconClass} />
-              <YoutubeFilled className={iconClass} />
-              <TwitterOutlined className={iconClass} />
+            
+            <div className="flex items-center gap-5 text-slate-600">
+              <a href="#" className="hover:text-blue-600 transition-colors">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
+              <a href="#" className="hover:text-blue-400 transition-colors">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                </svg>
+              </a>
+              <a href="#" className="hover:text-pink-600 transition-colors">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a href="#" className="hover:text-blue-700 transition-colors">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
             </div>
           </div>
 
-          <div>
-            <h3 className={titleClass}>Khám Phá</h3>
-            <ul>
-              <li><a href="#" className={linkClass}>Phim Đang Chiếu</a></li>
-              <li><a href="#" className={linkClass}>Phim Sắp Chiếu</a></li>
-              <li><a href="#" className={linkClass}>Rạp Toàn Quốc</a></li>
-              <li><a href="#" className={linkClass}>Khuyến Mãi Hot</a></li>
-              <li><a href="#" className={linkClass}>Bảng Xếp Hạng</a></li>
+          <div className="flex flex-col">
+            <h3 className="text-slate-800 font-semibold text-lg mb-6">Quick Links</h3>
+            <ul className="space-y-4 text-slate-600 font-medium">
+              <li><Link href={PUBLIC_PATH.HOME} className="hover:text-blue-600 transition-colors">Home</Link></li>
+              <li><Link href={PUBLIC_PATH.COURSES} className="hover:text-blue-600 transition-colors">Courses</Link></li>
+              <li><Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-blue-600 transition-colors">Mentors</Link></li>
+              <li><Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-blue-600 transition-colors">About Us</Link></li>
+              <li><Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-blue-600 transition-colors">Contact us</Link></li>
             </ul>
           </div>
 
-          <div>
-            <h3 className={titleClass}>Hỗ Trợ</h3>
-            <ul>
-              <li><a href="#" className={linkClass}>FAQ - Câu Hỏi Thường Gặp</a></li>
-              <li><a href="#" className={linkClass}>Chính Sách Thanh Toán</a></li>
-              <li><a href="#" className={linkClass}>Điều Khoản Sử dụng</a></li>
-              <li><a href="#" className={linkClass}>Chính Sách Bảo Mật</a></li>
-              <li><a href="#" className={linkClass}>Khiếu Nại & Góp Ý</a></li>
+          <div className="flex flex-col">
+            <h3 className="text-slate-800 font-semibold text-lg mb-6">Legal</h3>
+            <ul className="space-y-4 text-slate-600 font-medium">
+              <li><Link href="#" className="hover:text-blue-600 transition-colors">Trust & Safety</Link></li>
+              <li><Link href="#" className="hover:text-blue-600 transition-colors">Privacy Policy</Link></li>
+              <li><Link href="#" className="hover:text-blue-600 transition-colors">Terms & Conditions</Link></li>
+              <li><Link href="#" className="hover:text-blue-600 transition-colors">Fraud Alert</Link></li>
             </ul>
           </div>
 
-          <div>
-            <h3 className={titleClass}>Liên Hệ</h3>
-            <ul className="text-sm text-gray-400 space-y-4">
-              <li className="flex items-start gap-3">
-                <EnvironmentOutlined className="text-lg text-orange-500 mt-1" />
-                <span>123 Đường ABC, Phường 4, Quận Tân Bình, TP. Hồ Chí Minh</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <PhoneOutlined className="text-lg text-orange-500" />
-                <span>1900 123 456</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <MailOutlined className="text-lg text-orange-500" />
-                <span>support@moviestars.vn</span>
-              </li>
+          <div className="flex flex-col">
+            <h3 className="text-slate-800 font-semibold text-lg mb-6">Contact Us</h3>
+            <ul className="space-y-4 text-slate-600 font-medium">
+              <li>193, New York</li>
+              <li>+1125156363</li>
+              <li><a href="mailto:learn123@gmail.com" className="hover:text-blue-600 transition-colors">learn123@gmail.com</a></li>
             </ul>
           </div>
 
-        </div>
-      </div>
-
-      {/* Phần dưới: Dòng bản quyền */}
-      <div className="bg-slate-900 border-t border-gray-800 py-6 mt-10">
-        <div className="container mx-auto px-6 text-center text-sm text-gray-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p>&copy; {new Date().getFullYear()} MOVIESTARS. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-white">Privacy Policy</a>
-            <a href="#" className="hover:text-white">Terms of Service</a>
-          </div>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
