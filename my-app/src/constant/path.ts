@@ -3,5 +3,6 @@ export const PUBLIC_PATH = {
   COURSES: '/courses',
   MENTORS: '/mentors',
   ABOUT_US: '/about-us',
-  CONTACT_US: '/contact-us'
+  CONTACT_US: '/contact-us',
+  COMING_SOON: '/comingSoonPage',
 };

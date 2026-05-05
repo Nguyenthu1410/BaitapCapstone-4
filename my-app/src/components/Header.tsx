@@ -167,7 +167,7 @@ const inputRef = React.useRef<HTMLInputElement | null>(null);
           </li>
           <li>
             <Link
-              href={PUBLIC_PATH.MENTORS}
+              href={PUBLIC_PATH.COMING_SOON}
               className="hover:text-[#1a73e8] transition-colors"
             >
               MENTORS
@@ -175,7 +175,7 @@ const inputRef = React.useRef<HTMLInputElement | null>(null);
           </li>
           <li>
             <Link
-              href={PUBLIC_PATH.ABOUT_US}
+              href={PUBLIC_PATH.COMING_SOON}
               className="flex items-center gap-1.5 hover:text-[#1a73e8] transition-colors"
             >
               ABOUT US
@@ -183,7 +183,7 @@ const inputRef = React.useRef<HTMLInputElement | null>(null);
           </li>
           <li>
             <Link
-              href={PUBLIC_PATH.CONTACT_US}
+              href={PUBLIC_PATH.COMING_SOON}
               className="flex items-center gap-1.5 hover:text-[#1a73e8] transition-colors group relative py-2"
             >
               CONTACT US
