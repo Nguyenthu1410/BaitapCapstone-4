@@ -12,7 +12,7 @@ const ComingSoonPage = () => {
           Mục này sẽ sớm được hoàn thiện. Bạn có thể quay lại trang chủ để tiếp tục xem khóa học.
         </p>
         <Link
-          href={PUBLIC_PATH.COURSES}
+          href={PUBLIC_PATH.HOME}
           className="mt-6 inline-flex rounded-full bg-[#1a73e8] px-5 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"
         >
           Quay về trang chủ
