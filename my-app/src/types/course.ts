@@ -39,5 +39,15 @@ export interface PaginationProps {
   totalPages: number;
   onPageChange: (page: number) => void;
   itemsPerPage: number;
-  onItemsPerPageChange: (items: number) => void; // <--- KIỂM TRA DÒNG NÀY CÓ CHƯA
+  onItemsPerPageChange: (items: number) => void;
+}
+
+export interface RegisterForm {
+  taiKhoan: string,
+  matKhau: string,
+  hoTen: string,
+  soDT: string,
+  maLoaiNguoiDung: 'HV',
+  maNhom: string,
+  email: string
 }

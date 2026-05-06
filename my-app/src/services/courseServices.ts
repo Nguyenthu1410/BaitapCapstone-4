@@ -26,4 +26,5 @@ export const courseService = {
     const url = `${ENDPOINTS.LAY_DANH_MUC_KHOA_HOC}`;
     return fetcher<any[]>(url);
   },
+
 }
