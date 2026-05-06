@@ -5,16 +5,15 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Search, Phone, Mail } from "lucide-react";
 import { PUBLIC_PATH } from "@/src/constant/path";
-  
-const Header: React.FC = () => {
-const router = useRouter();
-const pathname = usePathname();
-const searchParams = useSearchParams();
-const currentKeyword = searchParams.get("keyword") || "";
-const keywordRef = React.useRef(currentKeyword);
-const debounceRef = React.useRef<number | null>(null);
-const inputRef = React.useRef<HTMLInputElement | null>(null);
 
+const Header: React.FC = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentKeyword = searchParams.get("keyword") || "";
+  const keywordRef = React.useRef(currentKeyword);
+  const debounceRef = React.useRef<number | null>(null);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
   const navigateWithKeyword = React.useCallback(
     (rawKeyword: string, method: "push" | "replace") => {
       const kw = rawKeyword.trim();
@@ -27,7 +26,10 @@ const inputRef = React.useRef<HTMLInputElement | null>(null);
       }
 
       const query = params.toString();
-      const targetPath = "/";
+
+      // SỬA DÒNG NÀY: Thay "/" bằng PUBLIC_PATH.COURSES
+      const targetPath = PUBLIC_PATH.COURSES;
+
       const nextUrl = query ? `${targetPath}?${query}` : targetPath;
       const currentQuery = searchParams.toString();
       const currentUrl = currentQuery

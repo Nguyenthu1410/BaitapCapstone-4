@@ -71,7 +71,7 @@ const CourseList = () => {
   return (
     <section className="max-w-7xl mx-auto px-4 py-8 bg-[#f4f7f9]">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-        {/* --- SIDEBAR BÊN TRÁI: DANH MỤC --- */}
+        {/* DANH MỤC */}
         <aside className="md:col-span-3 space-y-6">
           <div className="bg-white p-6 shadow-sm border-t-4 border-[#00a2e8] rounded-lg">
             <h3 className="text-[#00a2e8] font-bold text-sm uppercase mb-4">
@@ -113,7 +113,7 @@ const CourseList = () => {
           </div>
         </aside>
 
-        {/* --- DANH SÁCH KHÓA HỌC --- */}
+        {/* DANH SÁCH KHÓA HỌC */}
         <main className="md:col-span-9">
           <div className="mb-6 border-b pb-4 border-gray-200">
             <h2 className="text-2xl font-black text-slate-800 uppercase">
@@ -126,19 +126,33 @@ const CourseList = () => {
             </p>
           </div>
 
-          {categoryLoading ? (
-            <div className="mb-6 rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-700">
-              Đang tải khóa học theo danh mục...
-            </div>
-          ) : null}
-
-          {categoryError ? (
+          {categoryError && (
             <div className="mb-6 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
               {categoryError}
             </div>
-          ) : null}
+          )}
 
-          {totalCourses === 0 ? (
+          {/* XỬ LÝ GIAO DIỆN CHÍNH Ở ĐÂY */}
+          {categoryLoading ? (
+            // HIỆU ỨNG SKELETON LÚC ĐANG TẢI (Thay cho dòng chữ xanh cũ)
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((item) => (
+                <div key={item} className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm h-full">
+                  <div className="animate-pulse flex flex-col space-y-4">
+                    {/* Khung ảnh Thumbnail */}
+                    <div className="h-40 bg-slate-200 rounded-xl w-full"></div>
+                    {/* Khung Text */}
+                    <div className="space-y-2">
+                      <div className="h-4 bg-slate-200 rounded w-3/4"></div>
+                      <div className="h-4 bg-slate-200 rounded w-5/6"></div>
+                      <div className="h-4 bg-slate-200 rounded w-1/2 mt-4"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : totalCourses === 0 ? (
+            // KHÔNG CÓ KHÓA HỌC NÀO
             <div className="rounded-xl border border-dashed border-gray-300 bg-white p-10 text-center">
               <h3 className="text-lg font-semibold text-slate-800">
                 Không tìm thấy khóa học phù hợp
@@ -150,6 +164,7 @@ const CourseList = () => {
               </p>
             </div>
           ) : (
+            // RENDER KHÓA HỌC THẬT SAU KHI TẢI XONG
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {currentPaginatedCourses.map((course: Course) => (
                 <CourseCard key={course.maKhoaHoc} course={course} />
@@ -159,8 +174,8 @@ const CourseList = () => {
         </main>
       </div>
 
-      {/* PHẦN PHÂN TRANG */}
-      {totalCourses > 0 && (
+      {/* PHẦN PHÂN TRANG (Chỉ hiện khi tải xong và có khóa học) */}
+      {!categoryLoading && totalCourses > 0 && (
         <div className="mt-8 space-x-3 flex justify-center">
           <Pagination
             currentPage={currentPage}

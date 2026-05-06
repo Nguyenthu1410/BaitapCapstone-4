@@ -1,10 +1,9 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useCourses } from './useCourse'; // Sửa lại đường dẫn nếu cần
+import { useCourses } from './useCourse';
 import { courseService } from '../services/courseServices';
 import { Category, Course } from '../types/course';
 
-// Hàm helper để ở ngoài cùng
 const normalizeKeyword = (value: string) =>
   value
     .toLowerCase()
@@ -12,10 +11,12 @@ const normalizeKeyword = (value: string) =>
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/đ/g, 'd');
 
-export const useCourseList = () => {
+export const useCourseList = (category?: string | null) => {
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword')?.trim() || '';
   
+  const urlCategory = searchParams.get('category'); 
+
   const { categories, allCourses, loading, error } = useCourses();
   
   const [selectedCategory, setSelectedCategory] = useState<Category['maDanhMuc'] | null>(null);
@@ -24,8 +25,10 @@ export const useCourseList = () => {
   const [categoryError, setCategoryError] = useState<string | null>(null);
 
   useEffect(() => {
-    setDisplayCourses(allCourses);
-  }, [allCourses]);
+    if (!selectedCategory) {
+      setDisplayCourses(allCourses);
+    }
+  }, [allCourses, selectedCategory]);
 
   const filteredCourses = useMemo(() => {
     const normalizedKeyword = normalizeKeyword(keyword);
@@ -86,20 +89,106 @@ export const useCourseList = () => {
     }
   }, [categories, selectedCategory]);
 
-  const handleCategorySelect = useCallback(
-    async (category: Category['maDanhMuc'] | null) => {
-      setSelectedCategory(category);
-      setCategoryError(null);
+  // const handleCategorySelect = useCallback(
+  // //   async (categoryValue: Category['maDanhMuc'] | null) => {
+  // //     setSelectedCategory(categoryValue);
+  // //     setCategoryError(null);
 
-      if (category === null) {
-        setDisplayCourses(allCourses);
-        setCategoryLoading(false);
+  // //     if (categoryValue === null) {
+  // //       setDisplayCourses(allCourses);
+  // //       setCategoryLoading(false);
+  // //       return;
+  // //     }
+
+  // //     try {
+  // //       setCategoryLoading(true);
+  // //       const courses = await courseService.getCoursesByCategory(String(categoryValue));
+  // //       setDisplayCourses(courses);
+  // //     } catch (err) {
+  // //       setCategoryError(err instanceof Error ? err.message : 'Không thể tải khóa học theo danh mục.');
+  // //       setDisplayCourses([]);
+  // //     } finally {
+  // //       setCategoryLoading(false);
+  // //     }
+  // //   },
+  // //   [allCourses]
+  // // );
+  // // const handleCategorySelect = useCallback(
+  //   async (categoryValue: Category['maDanhMuc'] | null) => {
+  //     setSelectedCategory(categoryValue);
+  //     setCategoryError(null);
+
+  //     // 1. Nếu chọn "Tất cả danh mục"
+  //     if (categoryValue === null) {
+  //       setDisplayCourses(allCourses);
+  //       setCategoryLoading(false);
+  //       return;
+  //     }
+
+  //     // 2. XỬ LÝ RIÊNG CHO DANH MỤC "KHÁC" (Không gọi API)
+  //     if (categoryValue === 'Khac') {
+  //       const otherCourses = allCourses.filter((course) => {
+  //         const code = course.danhMucKhoaHoc?.maDanhMucKhoaHoc;
+  //         // Lọc ra những khóa học KHÔNG có danh mục hoặc danh mục không nằm trong list API trả về
+  //         return !code || !categories.some(cat => String(cat.maDanhMuc) === String(code));
+  //       });
+        
+  //       setDisplayCourses(otherCourses);
+  //       setCategoryLoading(false);
+  //       return;
+  //     }
+
+  //     // 3. Gọi API bình thường cho các danh mục chuẩn (BackEnd, FrontEnd,...)
+  //     try {
+  //       setCategoryLoading(true);
+  //       const courses = await courseService.getCoursesByCategory(String(categoryValue));
+  //       setDisplayCourses(courses);
+  //     } catch (err) {
+  //       setCategoryError(err instanceof Error ? err.message : 'Không thể tải khóa học theo danh mục.');
+  //       setDisplayCourses([]);
+  //     } finally {
+  //       setCategoryLoading(false);
+  //     }
+  //   },
+  //   // Nhớ thêm biến categories vào mảng dependency này để nó cập nhật đúng nhé
+  //   [allCourses, categories] 
+  // );
+  
+  const handleCategorySelect = useCallback(
+    async (categoryValue: Category['maDanhMuc'] | null) => {
+      setSelectedCategory(categoryValue);
+      setCategoryError(null);
+      
+      // Bật loading LÊN NGAY LẬP TỨC cho tất cả mọi trường hợp
+      setCategoryLoading(true); 
+
+      // 1. Nếu chọn "Tất cả danh mục"
+      if (categoryValue === null) {
+        // Dùng setTimeout tạo trễ 400ms cho đồng bộ UX
+        setTimeout(() => {
+          setDisplayCourses(allCourses);
+          setCategoryLoading(false);
+        }, 400);
         return;
       }
 
+      // 2. XỬ LÝ RIÊNG CHO DANH MỤC "KHÁC" (Không gọi API)
+      if (categoryValue === 'Khac') {
+        setTimeout(() => {
+          const otherCourses = allCourses.filter((course) => {
+            const code = course.danhMucKhoaHoc?.maDanhMucKhoaHoc;
+            return !code || !categories.some(cat => String(cat.maDanhMuc) === String(code));
+          });
+          
+          setDisplayCourses(otherCourses);
+          setCategoryLoading(false);
+        }, 400); // Cũng trễ 400ms luôn
+        return;
+      }
+
+      // 3. Gọi API bình thường cho các danh mục chuẩn
       try {
-        setCategoryLoading(true);
-        const courses = await courseService.getCoursesByCategory(String(category));
+        const courses = await courseService.getCoursesByCategory(String(categoryValue));
         setDisplayCourses(courses);
       } catch (err) {
         setCategoryError(err instanceof Error ? err.message : 'Không thể tải khóa học theo danh mục.');
@@ -108,10 +197,16 @@ export const useCourseList = () => {
         setCategoryLoading(false);
       }
     },
-    [allCourses]
+    [allCourses, categories]
   );
+  
+  useEffect(() => {
+    const targetCategory = category || urlCategory;
+    if (targetCategory) {
+      handleCategorySelect(targetCategory);
+    }
+  }, [category, urlCategory, handleCategorySelect]);
 
-  // Trả về tất cả những "nguyên liệu" mà UI cần để render
   return {
     loading,
     error,
