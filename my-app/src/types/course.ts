@@ -51,3 +51,8 @@ export interface RegisterForm {
   maNhom: string,
   email: string
 }
+
+export interface LoginForm {
+  taiKhoan: string;
+  matKhau: string;
+}
