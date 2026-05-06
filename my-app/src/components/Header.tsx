@@ -201,12 +201,12 @@ const Header: React.FC = () => {
           >
             Đăng Ký
           </Link>
-          <button
-            type="button"
+          <Link
+            href={PUBLIC_PATH.SIGN_IN}
             className="flex items-center gap-1.5 bg-[#1a73e8] text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 hover:shadow-md transition-all active:scale-95"
           >
             Đăng Nhập
-          </button>
+          </Link>
         </div>
 
         {/* CART */}
