@@ -24,7 +24,6 @@ export const useSearch = () => {
 
       const query = params.toString();
       
-      // Quan trọng: Dùng pathname hiện tại thay vì '/' để không bị đá về trang chủ
       const targetPath = pathname; 
       
       const nextUrl = query ? `${targetPath}?${query}` : targetPath;
@@ -83,7 +82,6 @@ export const useSearch = () => {
     navigateWithKeyword(keywordRef.current, 'push');
   };
 
-  // Trả ra những hàm và biến cần thiết để gắn vào UI
   return {
     currentKeyword,
     inputRef,

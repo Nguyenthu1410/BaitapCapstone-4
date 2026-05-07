@@ -42,6 +42,14 @@ export interface PaginationProps {
   onItemsPerPageChange: (items: number) => void;
 }
 
+export interface PaginatedResponse<T> {
+  currentPage: number;
+  count: number;
+  totalPages: number;
+  totalCount: number;
+  items: T[]; // Đây sẽ là mảng khóa học (Course[])
+}
+
 export interface RegisterForm {
   taiKhoan: string,
   matKhau: string,
@@ -52,7 +60,7 @@ export interface RegisterForm {
   email: string
 }
 
-export interface LoginForm {
+export interface SigninForm {
   taiKhoan: string;
   matKhau: string;
 }

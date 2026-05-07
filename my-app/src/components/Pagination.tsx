@@ -15,12 +15,10 @@ const Pagination: React.FC<PaginationProps> = ({
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
 
-    // Nếu đang ở các trang đầu
     if (currentPage <= 4) {
       return [1, 2, 3, 4, 5, "...", totalPages];
     }
 
-    // Nếu đang ở các trang cuối
     if (currentPage >= totalPages - 3) {
       return [
         1,
@@ -33,7 +31,6 @@ const Pagination: React.FC<PaginationProps> = ({
       ];
     }
 
-    // Nếu đang ở khúc giữa
     return [
       1,
       "...",
@@ -103,11 +100,10 @@ const Pagination: React.FC<PaginationProps> = ({
             onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
             className="cursor-pointer rounded-md border border-indigo-300 bg-white py-1.5 pl-3 pr-8 text-sm text-gray-700 outline-none hover:border-indigo-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
           >
-            {/* Sửa lại các option ở đây */}
-            <option value={12}>12 / page</option>
-            <option value={24}>24 / page</option>
-            <option value={36}>36 / page</option>
-            <option value={48}>48 / page</option>
+            <option value={10}>10 / page</option>
+            <option value={20}>20 / page</option>
+            <option value={30}>30 / page</option>
+            <option value={40}>40 / page</option>
           </select>
       </div>
     </div>

@@ -5,7 +5,8 @@ import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { PUBLIC_PATH } from "../constant/path";
 import { useRouter } from "next/navigation";
-import { useCourses } from "../hook/useCourse";
+// ✅ ĐÃ SỬA: Import đúng hook dùng chung mới tạo
+import { useCourseList } from "../hook/useCourseList";
 
 export default function HomePage() {
   const categoryVariants: Variants = {
@@ -35,7 +36,8 @@ export default function HomePage() {
   };
 
   const router = useRouter();
-  const { categories } = useCourses();
+  // ✅ ĐÃ SỬA: Gọi đúng hook useCourseList
+  const { categories } = useCourseList();
   const trendingCategories = categories?.slice(0, 6) || [];
 
   return (
@@ -273,7 +275,7 @@ export default function HomePage() {
             variants={staggerContainer}
             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
           >
-            {/* ĐỔI THÀNH DÙNG DATA TỪ API */}
+            {/* RENDER DATA TỪ API */}
             {trendingCategories.map((cat, i) => (
               <motion.div
                 variants={categoryVariants}

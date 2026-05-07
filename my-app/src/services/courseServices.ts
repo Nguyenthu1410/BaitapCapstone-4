@@ -1,5 +1,5 @@
 import { ENDPOINTS, MA_NHOM } from "../constant/api";
-import { Course } from "../types/course";
+import { Course, PaginatedResponse } from "../types/course";
 import { fetcher } from "./apiClients";
 
 export const courseService = {
@@ -27,4 +27,12 @@ export const courseService = {
     return fetcher<any[]>(url);
   },
 
+  getCoursesPaginated: (page: number, pageSize: number, tenKhoaHoc: string = "") => {
+    return fetcher<PaginatedResponse<Course>>(ENDPOINTS.LAY_DANH_SACH_KHOA_HOC_PHAN_TRANG, {
+      page: page.toString(),         
+      pageSize: pageSize.toString(), 
+      MaNhom: MA_NHOM,               
+      ...(tenKhoaHoc.trim() ? { tenKhoaHoc: tenKhoaHoc.trim() } : {}),
+    });
+  },
 }

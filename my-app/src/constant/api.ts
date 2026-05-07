@@ -11,6 +11,8 @@ export const ENDPOINTS = {
   
   LAY_DANH_MUC_KHOA_HOC: "/api-cybersoft/QuanLyKhoaHoc/LayDanhMucKhoaHoc",
 
+  LAY_DANH_SACH_KHOA_HOC_PHAN_TRANG: "/api-cybersoft/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang",
+
   DANG_KY: "/api-cybersoft/QuanLyNguoiDung/DangKy",
 
   DANG_NHAP: "/api-cybersoft/QuanLyNguoiDung/DangNhap" 
