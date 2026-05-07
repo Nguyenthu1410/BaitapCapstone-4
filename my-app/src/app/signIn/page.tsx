@@ -19,23 +19,19 @@ export default function SigninPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrorMsg(''); // Xóa lỗi cũ trước khi submit
-
+    setErrorMsg(''); 
     try {
-      // Gọi API với { taiKhoan, matKhau }
       const result = await authServices.login(formData);
 
-      // result.data: Lưu tất cả thông tin vào localStorage (chứa accessToken và thông tin user)
       localStorage.setItem('userLogin', JSON.stringify(result));
 
       alert('Đăng nhập thành công!');
       router.push('/'); 
       
     } catch (error: any) {
-      // Xử lý error theo đúng cấu trúc: error.response.data và error.response.status
       if (error.response) {
-        const statusCode = error.response.status; // Mã lỗi
-        const errorMessage = error.response.data; // Tên lỗi
+        const statusCode = error.response.status; 
+        const errorMessage = error.response.data; 
         
         setErrorMsg(`Lỗi ${statusCode}: ${errorMessage}`);
       } else {

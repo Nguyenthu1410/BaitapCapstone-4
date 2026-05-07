@@ -3,8 +3,10 @@ import React from "react";
 import { authServices } from "@/src/services/authServices";
 import { RegisterForm } from "@/src/types/course";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -22,6 +24,7 @@ export default function RegisterPage() {
       const result = await authServices.register(data);
       console.log("Dữ liệu trả về:", result.data);
       alert("Đăng ký thành công!");
+      router.push("/signIn");
     } catch (error: any) {
       if (error.response) {
         const errorData = error.response.data;

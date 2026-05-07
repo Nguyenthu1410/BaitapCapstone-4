@@ -6,5 +6,5 @@ export const PUBLIC_PATH = {
   CONTACT_US: '/contact-us',
   COMING_SOON: '/comingSoonPage',
   REGISTER: '/register',
-  SIGN_IN: '/sign-in'
+  SIGN_IN: '/signIn'
 };

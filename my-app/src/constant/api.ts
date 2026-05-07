@@ -13,6 +13,6 @@ export const ENDPOINTS = {
 
   DANG_KY: "/api-cybersoft/QuanLyNguoiDung/DangKy",
 
-  DANG_NHAP: "/api-cybersoft/QuanLyNguoiDung/DangNhap"
+  DANG_NHAP: "/api-cybersoft/QuanLyNguoiDung/DangNhap" 
 };
 
