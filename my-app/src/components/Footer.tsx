@@ -69,9 +69,9 @@ export default function Footer() {
           <div className="flex flex-col">
             <h3 className="text-slate-800 font-semibold text-lg mb-6">Contact Us</h3>
             <ul className="space-y-4 text-slate-600 font-medium">
-              <li>193, New York</li>
+              <li>193, Viet Nam</li>
               <li>+1125156363</li>
-              <li><a href="mailto:learn123@gmail.com" className="hover:text-blue-600 transition-colors">learn123@gmail.com</a></li>
+              <li><a href="mailto:learn123@gmail.com" className="hover:text-blue-600 transition-colors">E-learning123@gmail.com</a></li>
             </ul>
           </div>
 
