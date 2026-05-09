@@ -47,7 +47,7 @@ export interface PaginatedResponse<T> {
   count: number;
   totalPages: number;
   totalCount: number;
-  items: T[]; // Đây sẽ là mảng khóa học (Course[])
+  items: T[]; 
 }
 
 export interface RegisterForm {
@@ -63,4 +63,14 @@ export interface RegisterForm {
 export interface SigninForm {
   taiKhoan: string;
   matKhau: string;
+}
+
+export interface UserProfile {
+  taiKhoan: string;
+  hoTen: string;
+  email: string;
+  soDT: string;
+  maLoaiNguoiDung: string;
+  maNhom: string;
+  accessToken: string;
 }

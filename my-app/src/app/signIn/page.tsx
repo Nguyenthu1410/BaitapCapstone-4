@@ -26,7 +26,8 @@ export default function SigninPage() {
       localStorage.setItem('userLogin', JSON.stringify(result));
 
       alert('Đăng nhập thành công!');
-      router.push('/'); 
+      // router.push('/'); 
+      window.location.href = '/';
       
     } catch (error: any) {
       if (error.response) {

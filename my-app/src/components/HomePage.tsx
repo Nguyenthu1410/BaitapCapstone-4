@@ -36,7 +36,6 @@ export default function HomePage() {
   };
 
   const router = useRouter();
-  // ✅ ĐÃ SỬA: Gọi đúng hook useCourseList
   const { categories } = useCourseList();
   const trendingCategories = categories?.slice(0, 6) || [];
 
