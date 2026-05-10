@@ -46,7 +46,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className="flex w-max items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 shadow-sm border border-gray-100">
-      {/* Nút Previous */}
+      {/* BUTTON PREVIOUS */}
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
@@ -55,7 +55,7 @@ const Pagination: React.FC<PaginationProps> = ({
         Previous
       </button>
 
-      {/* Các số trang */}
+      {/* SỐ TRANG */}
       <div className="flex items-center gap-1">
         {pages.map((page, index) => {
           if (page === "...") {
@@ -84,7 +84,7 @@ const Pagination: React.FC<PaginationProps> = ({
         })}
       </div>
 
-      {/* Nút Next */}
+      {/* BUTTON NEXT */}
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
@@ -93,7 +93,7 @@ const Pagination: React.FC<PaginationProps> = ({
         Next
       </button>
 
-      {/* Dropdown chọn số item mỗi trang */}
+      {/* DROPDOWN */}
       <div className="ml-4 flex items-center">
         <select
             value={itemsPerPage}

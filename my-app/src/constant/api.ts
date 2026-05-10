@@ -1,6 +1,7 @@
 export const MA_NHOM = 'GP01';
 
 export const ENDPOINTS = {
+  // USER
   LAY_DANH_SACH_KHOA_HOC: '/api-cybersoft/QuanLyKhoaHoc/LayDanhSachKhoaHoc',
 
   TIM_KIEM_KHOA_HỌC: "/api-cybersoft/QuanLyKhoaHoc/LayDanhSachKhoaHoc",
@@ -19,6 +20,12 @@ export const ENDPOINTS = {
 
   THONG_TIN_TAI_KHOAN: '/api-cybersoft/QuanLyNguoiDung/ThongTinTaiKhoan',
 
-  CAP_NHAT_NGUOI_DUNG: '/api-cybersoft/QuanLyNguoiDung/CapNhatThongTinNguoiDung'
+  CAP_NHAT_NGUOI_DUNG: '/api-cybersoft/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
+
+  DANG_KY_KHOA_HOC: '/api-cybersoft/QuanLyKhoaHoc/DangKyKhoaHoc',
+
+  HUY_GHI_DANH: "/api-cybersoft/QuanLyKhoaHoc/HuyGhiDanh",
+
+  // ADMIN
 };
 

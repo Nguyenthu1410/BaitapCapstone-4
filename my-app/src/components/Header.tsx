@@ -23,7 +23,6 @@ const Header: React.FC = () => {
 
   return (
     <>
-      {/* Bao trùm Header bằng select-none */}
       <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-[0_4px_30px_rgba(0,0,0,0.03)] font-sans transition-all duration-300 select-none">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           
@@ -40,7 +39,6 @@ const Header: React.FC = () => {
             {/* THANH TÌM KIẾM */}
             <form onSubmit={handleSearch} className="hidden lg:flex relative group items-center">
               <Search className="absolute left-4 text-slate-400 group-focus-within:text-[#1a73e8] transition-colors z-10 pointer-events-none" size={16} />
-              {/* Thêm select-text để ô input vẫn gõ và bôi đen bình thường */}
               <input
                 ref={inputRef}
                 type="text"
@@ -146,7 +144,6 @@ const Header: React.FC = () => {
               </div>
             )}
 
-            {/* Input mobile vẫn cần bôi đen */}
             <form onSubmit={handleSearch} className="flex lg:hidden items-center bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 focus-within:bg-white focus-within:border-[#1a73e8] transition-all">
               <Search size={18} className="text-slate-400 mr-3 shrink-0" />
               <input

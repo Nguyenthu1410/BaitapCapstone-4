@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { PUBLIC_PATH } from "../constant/path";
 import { useRouter } from "next/navigation";
-// ✅ ĐÃ SỬA: Import đúng hook dùng chung mới tạo
 import { useCourseList } from "../hook/useCourseList";
 
 export default function HomePage() {

@@ -10,7 +10,10 @@ export default function Footer() {
           
           <div className="flex flex-col">
             <Link href="/" className="flex items-center text-3xl font-medium tracking-wide text-slate-800 mb-10">
-              <span className="text-blue-500 font-semibold mr-[1px]">E</span>- Learning
+              <div className="flex items-baseline italic">
+                <span className="text-3xl font-black text-[#1a73e8] group-hover:scale-105 transition-transform duration-300">E-</span>
+                <span className="text-2xl font-extrabold tracking-widest text-slate-800 uppercase">Learning</span>
+              </div>
             </Link>
             
             <p className="text-slate-700 font-medium mb-4">
