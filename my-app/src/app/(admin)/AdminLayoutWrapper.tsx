@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Layout, Menu, Breadcrumb, Avatar, Dropdown, Badge } from "antd";
+import { Layout, Menu, Avatar, Dropdown, Badge, Input } from "antd";
 import {
   LayoutDashboard,
   Users,
@@ -10,9 +10,9 @@ import {
   LogOut,
   ChevronDown,
   Bell,
+  Search,
 } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link";
 
 const { Header, Sider, Content } = Layout;
 
@@ -63,18 +63,20 @@ export default function AdminLayoutWrapper({ children }: { children: React.React
       </Sider>
 
       <Layout className="bg-[#f5f7fa]">
-        <Header className="bg-white px-6 flex items-center justify-between shadow-sm h-16 leading-none border-b border-gray-100">
-          <div className="flex items-center shrink-0 overflow-hidden">
-            <Breadcrumb 
-              className="whitespace-nowrap"
-              items={[
-                { title: <Link href="/admin" className="text-gray-400">Home</Link> },
-                { title: <span className="font-semibold text-gray-800 text-sm uppercase">Dashboard</span> }
-              ]} 
+        <Header className="bg-white px-6 flex items-center shadow-sm h-16 leading-none border-b border-gray-100">
+          
+          {/* KHU VỰC THANH TÌM KIẾM - Đã xóa lề trái (ml-12) để nó nằm sát sang mép trái */}
+          <div className="hidden md:flex flex-1 max-w-md">
+            <Input
+              size="large"
+              placeholder="Tìm kiếm khóa học, người dùng..."
+              prefix={<Search size={16} className="text-gray-400 mr-2" />}
+              className="rounded-full bg-gray-50 border-transparent hover:bg-white hover:border-blue-400 focus-within:bg-white focus-within:border-blue-500 transition-all shadow-none"
             />
           </div>
-          
-          <div className="flex items-center gap-6 h-full justify-end flex-1 ml-4">
+
+          {/* KHU VỰC AVATAR VÀ THÔNG BÁO */}
+          <div className="flex items-center gap-6 h-full justify-end ml-auto">
             <div className="flex items-center cursor-pointer group px-1">
                 <Badge count={notificationCount} size="small" showZero={false}>
                     <Bell size={20} className="text-gray-500 group-hover:text-blue-500 transition-colors" />

@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
-import '../../../globals.css';
-import AdminLayoutWrapper from "./admin/AdminLayoutWrapper"; 
+import '../../globals.css';
+import AdminLayoutWrapper from "./AdminLayoutWrapper"; 
 
 export const metadata: Metadata = {
   title: "E-Learning Capstone",
