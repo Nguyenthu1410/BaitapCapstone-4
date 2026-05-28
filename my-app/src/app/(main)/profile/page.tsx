@@ -153,7 +153,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useProfile } from "@/src/hook/useProfile"; 
+import { useProfile } from "@/src/hook/clients/useProfile"; 
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("account");

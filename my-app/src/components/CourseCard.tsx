@@ -130,7 +130,7 @@ import { CourseCardProps } from "../types/course";
 import { LuUsers, LuEye, LuShoppingCart } from "react-icons/lu";
 
 // IMPORT HOOK MỚI TẠO
-import { useCourseCard } from "../hook/useCourseCard"; 
+import { useCourseCard } from "../hook/clients/useCourseCard"; 
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   // GỌI HOOK LẤY RA DATA & LOGIC CẦN THIẾT

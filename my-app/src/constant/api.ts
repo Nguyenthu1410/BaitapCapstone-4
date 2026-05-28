@@ -24,8 +24,13 @@ export const ENDPOINTS = {
 
   DANG_KY_KHOA_HOC: '/api-cybersoft/QuanLyKhoaHoc/DangKyKhoaHoc',
 
-  HUY_GHI_DANH: "/api-cybersoft/QuanLyKhoaHoc/HuyGhiDanh",
+  HUY_GHI_DANH: '/api-cybersoft/QuanLyKhoaHoc/HuyGhiDanh',
 
   // ADMIN
+  DANH_SACH_NGUOI_DUNG: '/api-cybersoft/QuanLyNguoiDung/LayDanhSachLoaiNguoiDung',
+
+  LAY_LOAI_NGUOI_DUNG: '/api-cybersoft/QuanLyNguoiDung/LayDanhSachLoaiNguoiDung',
+
+  THEM_NGUOI_DUNG: '/api-cybersoft/QuanLyNguoiDung/ThemNguoiDung'
 };
 

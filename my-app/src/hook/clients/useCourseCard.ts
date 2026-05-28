@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { courseService } from "../services/courseServices";
-import { PUBLIC_PATH } from "../constant/path";
-import { Course } from "../types/course"; // Nhớ import đúng đường dẫn type
+import { courseService } from "../../services/courseServices";
+import { PUBLIC_PATH } from "../../constant/path";
+import { Course } from "../../types/course"; // Nhớ import đúng đường dẫn type
 
 export const useCourseCard = (course: Course | undefined) => {
     const router = useRouter();

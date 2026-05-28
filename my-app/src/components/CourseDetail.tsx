@@ -6,14 +6,12 @@ import { useRouter } from "next/navigation";
 import { PUBLIC_PATH } from "../constant/path";
 import { courseService } from "../services/courseServices";
 
-// IMPORT ICON TỪ THƯ VIỆN REACT-ICONS (Bộ Lucide Icons)
 import { LuUser, LuUsers, LuEye, LuClock, LuShoppingCart } from "react-icons/lu";
 
 const CourseDetail: React.FC<Props> = ({ course }) => {
   const router = useRouter();
   const [isRegistering, setIsRegistering] = useState(false);
 
-  // HÀM XỬ LÝ ĐĂNG KÝ KHÓA HỌC
   const handleRegisterCourse = async () => {
     const isLogin = localStorage.getItem("userLogin");
     if (!isLogin) {

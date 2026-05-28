@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
-import { useCourseDetail } from '@/src/hook/useCourseDetail';
+import { useCourseDetail } from '@/src/hook/clients/useCourseDetail';
 import CourseDetail from '@/src/components/CourseDetail';
 
 

@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Search, Menu, X } from "lucide-react";
 import { PUBLIC_PATH } from "@/src/constant/path";
-import { useHeader } from "@/src/hook/useHeader";
+import { useHeader } from "@/src/hook/clients/useHeader";
 
 const Header: React.FC = () => {
   const {

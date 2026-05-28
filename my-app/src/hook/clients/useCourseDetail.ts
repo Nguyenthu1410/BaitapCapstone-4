@@ -31,10 +31,10 @@
 // }
 
 import { useEffect, useState } from "react"
-import { Course } from "../types/course"
-import { courseService } from "../services/courseServices";
+import { Course } from "../../types/course"
+import { courseService } from "../../services/courseServices";
 import { useRouter } from "next/navigation";
-import { PUBLIC_PATH } from "../constant/path";
+import { PUBLIC_PATH } from "../../constant/path";
 
 export const useCourseDetail = (maKhoaHoc: string) => {
     const router = useRouter();
