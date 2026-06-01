@@ -17,9 +17,9 @@ export const PUBLIC_PATH = {
   PROFILE: '/profile',
 };
 
-export const menuItemsConfig = [
+export const ADMIN_MENU_ITEMS = [
   { key: "/admin", icon: LayoutDashboard, label: "Dashboard" },
   { key: "/admin/users", icon: Users, label: "Quản lý người dùng" },
   { key: "/admin/courses", icon: BookOpen, label: "Quản lý khóa học" },
-  { key: "/admin/settings", icon: Settings, label: "Cài đặt" },
+  { key: "/comingSoonPage", icon: Settings, label: "Cài đặt" },
 ];

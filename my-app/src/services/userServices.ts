@@ -1,22 +1,26 @@
-import { ENDPOINTS, MA_NHOM } from "../constant/api";
+import { ENDPOINTS, MA_NHOM } from "@/src/constant/api";
 import { fetcher, poster } from "./apiClients";
 
 export const userServices = {
   //   LẤY DANH SÁCH
-  getUsers: (tuKhoa = "") => {
-    const params: Record<string, string> = { MaNhom: MA_NHOM };
-    if (tuKhoa) params.tuKhoa = tuKhoa;
+  getListUser: async () => {
+    const url = `${ENDPOINTS.DANH_SACH_NGUOI_DUNG}`
+    
+    const res = await fetch(url, {
+      method: "GET",
+    });
 
-    return fetcher(
-      `https://elearningnew.cybersoft.edu.vn${ENDPOINTS.DANH_SACH_NGUOI_DUNG}`,
-      params,
-    );
+    if (!res.ok) {
+      throw new Error("Lỗi không thể tải danh sách người dùng!");
+    }
+    
+    return res.json();
   },
 
   //   LẤY LOẠI NGƯỜI DÙNG
   getUserTypes: () => {
     return fetcher(
-      `https://elearningnew.cybersoft.edu.vn${ENDPOINTS.LAY_LOAI_NGUOI_DUNG}`,
+      ENDPOINTS.LAY_LOAI_NGUOI_DUNG,
     );
   },
 
@@ -24,7 +28,7 @@ export const userServices = {
   addUser: (payload: any) => {
     const dataToSend = { ...payload, maNhom: MA_NHOM };
     return poster(
-      `https://elearningnew.cybersoft.edu.vn${ENDPOINTS.THEM_NGUOI_DUNG}`,
+      ENDPOINTS.THEM_NGUOI_DUNG,
       dataToSend,
       "POST",
     );

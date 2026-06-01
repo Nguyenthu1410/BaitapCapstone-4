@@ -1,5 +1,5 @@
-import { ENDPOINTS, MA_NHOM } from "../constant/api";
-import { RegisterForm, SigninForm } from "../types/course"; 
+import { ENDPOINTS, MA_NHOM } from "@/src/constant/api";
+import { RegisterForm, SigninForm } from "@/src/types/course"; 
 
 const TOKEN_CYBERSOFT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA4OCIsIkhldEhhblN0cmluZyI6IjIwLzA5LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc4OTg2MjQwMDAwMCIsIm5iZiI6MTc2MDAyOTIwMCwiZXhwIjoxNzkwMDEwMDAwfQ.EeWR303-_B1UvS0JNqgB9-oekCYMonI_KPT2LceiOb8";
 

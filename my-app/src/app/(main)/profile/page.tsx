@@ -188,10 +188,10 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-[#f8f9fb] py-10">
       <div className="flex flex-col md:flex-row gap-6 max-w-7xl mx-auto px-4 items-start">
         
-        {/* ================= CỘT TRÁI: SIDEBAR (STICKY) ================= */}
+        {/* CỘT TRÁI: SIDEBAR */}
         <div className="w-full md:w-1/3 lg:w-1/4 sticky top-6 space-y-4">
           <div className="bg-white py-8 px-4 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center">
-            <div className="w-24 h-24 bg-gradient-to-tr from-slate-400 to-slate-500 rounded-full flex items-center justify-center text-white text-4xl font-bold mb-4 shadow-lg ring-4 ring-slate-50">
+            <div className="w-24 h-24 bg-linear-to-tr from-slate-400 to-slate-500 rounded-full flex items-center justify-center text-white text-4xl font-bold mb-4 shadow-lg ring-4 ring-slate-50">
               {user.hoTen ? user.hoTen.charAt(0).toUpperCase() : "U"}
             </div>
             <h2 className="text-xl font-bold text-slate-800 text-center">
@@ -226,14 +226,14 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* ================= CỘT PHẢI: NỘI DUNG CHÍNH ================= */}
+        {/* CỘT PHẢI: NỘI DUNG CHÍNH */}
         <div className="w-full md:w-2/3 lg:w-3/4 space-y-6">
           
-          {/* --- TAB THÔNG TIN TÀI KHOẢN --- */}
+          {/* TAB THÔNG TIN TÀI KHOẢN */}
           {activeTab === "account" && (
             <div className="animate-fade-in space-y-6">
               
-              {/* Hàng thống kê: Đã đưa về số 0 */}
+              {/* Hàng thống kê */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
                   <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Khóa học ghi danh</p>
@@ -339,7 +339,7 @@ export default function ProfilePage() {
             </div>
           )}
 
-          {/* --- TAB KHÓA HỌC CỦA TÔI (BẢNG) --- */}
+          {/* TAB KHÓA HỌC CỦA TÔI */}
           {activeTab === "courses" && (
             <div className="animate-fade-in transition-all">
               <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
@@ -365,7 +365,7 @@ export default function ProfilePage() {
                       {user.chiTietKhoaHocGhiDanh?.map((item: any, index: number) => (
                         <tr key={item.maKhoaHoc} className="hover:bg-slate-50/50 transition-colors group">
                           <td className="px-6 py-4 text-sm font-bold text-slate-300">{index + 1}</td>
-                          <td className="px-6 py-4 text-sm font-bold text-slate-700 max-w-[220px] truncate group-hover:text-blue-600 transition-colors">
+                          <td className="px-6 py-4 text-sm font-bold text-slate-700 max-w-55 truncate group-hover:text-blue-600 transition-colors">
                             {item.tenKhoaHoc}
                           </td>
                           <td className="px-6 py-4">

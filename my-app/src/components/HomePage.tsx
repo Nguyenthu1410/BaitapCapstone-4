@@ -43,7 +43,7 @@ export default function HomePage() {
       <motion.div
         animate={{ y: [0, -20, 0], scale: [1, 1.05, 1] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-40 hidden md:block"
+        className="absolute top-[-10%] left-[-10%] w-125 h-125 bg-blue-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-40 hidden md:block"
       />
       <motion.div
         animate={{ y: [0, 20, 0], scale: [1, 1.1, 1] }}
@@ -53,7 +53,7 @@ export default function HomePage() {
           ease: "easeInOut",
           delay: 1,
         }}
-        className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-indigo-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-40 hidden md:block"
+        className="absolute top-[20%] right-[-10%] w-100 h-100 bg-indigo-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-40 hidden md:block"
       />
 
       {/* SECTION 1: HERO */}
@@ -77,7 +77,7 @@ export default function HomePage() {
             className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight text-slate-900 mb-6"
           >
             Khám Phá Tri Thức <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-600">
               Từ Các Chuyên Gia
             </span>
           </motion.h1>
@@ -97,7 +97,7 @@ export default function HomePage() {
           >
             <Link
               href={PUBLIC_PATH.COURSES}
-              className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-1 transition-all duration-300"
+              className="w-full sm:w-auto px-8 py-4 bg-linear-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-1 transition-all duration-300"
             >
               Khám phá khóa học 🚀
             </Link>
@@ -115,13 +115,13 @@ export default function HomePage() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="bg-gradient-to-br from-slate-900 to-blue-950 rounded-[2rem] p-10 md:p-14 text-center shadow-2xl relative overflow-hidden"
+          className="bg-linear-to-br from-slate-900 to-blue-950 rounded-4xl p-10 md:p-14 text-center shadow-2xl relative overflow-hidden"
         >
           <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
           <h2 className="text-2xl md:text-4xl font-bold text-white leading-snug mb-10 relative z-10">
             Phát triển kỹ năng với hơn{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-300 text-5xl">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-teal-300 text-5xl">
               200+
             </span>{" "}
             khóa học <br className="hidden md:block" /> từ các trường đại học &
@@ -157,7 +157,7 @@ export default function HomePage() {
           <div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900">
               Khóa Học{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-600">
                 Nổi Bật
               </span>
             </h2>
@@ -284,7 +284,7 @@ export default function HomePage() {
                   onClick={() =>
                     router.push(`/courses?category=${cat.maDanhMuc}`)
                   }
-                  className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col items-center shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all duration-300 cursor-pointer group h-full block relative z-50"
+                  className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col items-center shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all duration-300 cursor-pointer group h-full relative z-50"
                 >
                   <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-inner">
                     <svg
@@ -318,10 +318,10 @@ export default function HomePage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-[2.5rem] p-10 md:p-16 text-center shadow-2xl shadow-indigo-500/20 relative overflow-hidden"
+          className="bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-[40px] p-10 md:p-16 text-center shadow-2xl shadow-indigo-500/20 relative overflow-hidden"
         >
-          <div className="absolute top-[-50%] left-[-10%] w-[300px] h-[300px] border-[40px] border-white/10 rounded-full"></div>
-          <div className="absolute bottom-[-50%] right-[-10%] w-[400px] h-[400px] border-[40px] border-white/10 rounded-full"></div>
+          <div className="absolute top-[-50%] left-[-10%] w-75 h-75 border-10 border-white/10 rounded-full"></div>
+          <div className="absolute bottom-[-50%] right-[-10%] w-100 h-100 border-10 border-white/10 rounded-full"></div>
 
           <div className="relative z-10">
             <h2 className="text-3xl md:text-5xl font-black text-white mb-6">

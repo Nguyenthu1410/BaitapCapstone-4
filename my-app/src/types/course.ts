@@ -15,7 +15,6 @@ export interface Course {
     danhMucKhoaHoc: {
         maDanhMucKhoaHoc: string;
         tenDanhMucKhoaHoc: string;
-
     };
 }
 
@@ -23,7 +22,6 @@ export interface Category {
     maDanhMuc: string | number,
     tenDanhMuc: string,
     courses: Course[],
-
 }
 
 export interface CourseCardProps {
@@ -74,3 +72,36 @@ export interface UserProfile {
   maNhom: string;
   accessToken: string;
 }
+
+export interface CoursePayload {
+  maKhoaHoc: string;
+  biDanh: string;
+  tenKhoaHoc: string;
+  moTa: string;
+  maDanhMucKhoaHoc: string;
+  hinhAnh?: File | string;
+  luotXem?: number | string;
+  danhGia?: number | string;
+  ngayTao?: string;
+  maNhom?: string;
+  taiKhoanNguoiTao?: string;
+}
+
+export interface EditCourseModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  isUpdating: boolean;
+  onEdit: (values: CoursePayload) => Promise<boolean>; 
+  categories: Category[];
+  editingCourse: Course | null;
+}
+
+export interface AddCourseModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  isSubmitting: boolean;
+  onAdd: (values: CoursePayload) => Promise<boolean>;
+  categories: Category[];
+}
+
+export type UploadMode = 'THEM' | 'CAP_NHAT' | 'CHI_DOI_ANH';

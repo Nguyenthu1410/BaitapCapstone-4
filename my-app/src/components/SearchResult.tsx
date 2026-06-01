@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { courseService } from '../services/courseServices';
-import { Course } from '../types/course';
 import CourseCard from './CourseCard';
+import { courseService } from '@/src/services/courseServices';
+import { Course } from '@/src/types/course';
 
 const SearchResult: React.FC = () => {
   const params = useSearchParams();

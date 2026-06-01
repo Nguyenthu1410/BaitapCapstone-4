@@ -27,7 +27,7 @@ const Header: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           
           {/* LOGO */}
-          <div className="flex items-center gap-4 xl:gap-6 flex-shrink-0">
+          <div className="flex items-center gap-4 xl:gap-6 shrink-0">
             <Link href={PUBLIC_PATH.HOME} className="flex items-center group shrink-0" onClick={() => setIsMobileMenuOpen(false)}>
               <div className="flex items-baseline italic">
                 <span className="text-3xl font-black text-[#1a73e8] group-hover:scale-105 transition-transform duration-300">E-</span>
@@ -202,7 +202,7 @@ const Header: React.FC = () => {
 
       {/* HIỆU ỨNG LOADING ĐĂNG XUẤT */}
       {isLoggingOut && (
-        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white/60 backdrop-blur-md animate-in fade-in duration-300 select-none">
+        <div className="fixed inset-0 z-100 flex flex-col items-center justify-center bg-white/60 backdrop-blur-md animate-in fade-in duration-300 select-none">
           <div className="relative">
             <div className="w-16 h-16 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin"></div>
             <div className="absolute inset-0 flex items-center justify-center">

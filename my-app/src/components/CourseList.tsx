@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import CourseCard from "./CourseCard";
-import { Category, Course } from "../types/course";
-import { useCourseList } from "../hook/useCourseList";
 import Pagination from "./Pagination";
+import { useCourseList } from "../hook/clients/useCourseList";
+import { Category, Course } from "../types/course";
 
 const CourseList = () => {
   const {

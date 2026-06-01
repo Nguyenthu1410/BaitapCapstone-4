@@ -26,14 +26,13 @@ export const useProfile = () => {
     try {
       const result = await authServices.updateUser({
         ...formData,
-        maNhom: "GP01", // Nhóm mặc định
+        maNhom: "GP01", 
         maLoaiNguoiDung: user.maLoaiNguoiDung
       });
       
       setUser(result);
       setIsEdit(false);
       
-      // Đồng bộ dữ liệu mới vào localStorage để Header cập nhật theo
       const currentUserLogin = JSON.parse(localStorage.getItem("userLogin") || "{}");
       localStorage.setItem("userLogin", JSON.stringify({ ...currentUserLogin, hoTen: result.hoTen, soDT: result.soDT }));
       window.dispatchEvent(new Event('storage')); 
@@ -54,11 +53,8 @@ export const useProfile = () => {
   const handleDeleteCourse = async (maKhoaHoc: string) => {
     if (window.confirm("Bạn có chắc chắn muốn hủy đăng ký khóa học này không?")) {
       try {
-        // Gọi API hủy ghi danh
         await courseService.huyGhiDanh(maKhoaHoc);
         alert("Đã hủy đăng ký thành công!");
-        
-        // Tải lại dữ liệu Profile từ server để cập nhật lại danh sách khóa học (làm mất khóa học vừa hủy)
         const newData = await authServices.getAccountInfo();
         setUser(newData);
       } catch (err: any) {

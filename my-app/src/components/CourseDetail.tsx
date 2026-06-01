@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Props } from "../types/course";
+import { Props } from "@/src/types/course";
 import { useRouter } from "next/navigation";
-import { PUBLIC_PATH } from "../constant/path";
-import { courseService } from "../services/courseServices";
+import { PUBLIC_PATH } from "@/src/constant/path";
+import { courseService } from "@/src/services/courseServices";
 
 import { LuUser, LuUsers, LuEye, LuClock, LuShoppingCart } from "react-icons/lu";
 

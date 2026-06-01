@@ -265,8 +265,8 @@
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { courseService } from '../services/courseServices';
-import { Category, Course } from '../types/course';
+import { courseService } from '@/src/services/courseServices';
+import { Category, Course } from '@/src/types/course';
 
 const normalizeKeyword = (value: string) =>
   value

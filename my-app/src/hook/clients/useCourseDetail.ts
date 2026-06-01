@@ -32,7 +32,7 @@
 
 import { useEffect, useState } from "react"
 import { Course } from "../../types/course"
-import { courseService } from "../../services/courseServices";
+import { courseService } from "@/src/services/courseServices";
 import { useRouter } from "next/navigation";
 import { PUBLIC_PATH } from "../../constant/path";
 
