@@ -90,7 +90,6 @@ export default function CourseManagementPage() {
               danger 
               icon={<Trash2 size={18} />} 
               onClick={() => {
-                // Hiển thị hộp thoại cảnh báo trước khi xóa
                 Modal.confirm({
                   title: 'Xác nhận xóa khóa học',
                   content: `Bạn có chắc chắn muốn xóa khóa học "${record.tenKhoaHoc}" không? Hành động này không thể hoàn tác.`,
@@ -109,7 +108,6 @@ export default function CourseManagementPage() {
     },
   ];
 
- // GIAO DIỆN CHÍNH
   return (
     <div className="p-6 flex flex-col gap-6 bg-[#f5f7fa] min-h-full">
       {/* HEADER */}
@@ -170,7 +168,6 @@ export default function CourseManagementPage() {
         </div>
       </div>
 
-      {/* NHÚNG 2 COMPONENT MODAL VÀO ĐÂY BẰNG PROPS */}
       <AddCourseModal 
         isOpen={isAddModalOpen} 
         onClose={() => setIsAddModalOpen(false)} 

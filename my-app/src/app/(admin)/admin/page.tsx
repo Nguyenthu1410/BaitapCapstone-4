@@ -1,254 +1,8 @@
-// "use client";
-
-// import React from "react";
-// import { Card, Table, Button, Space, Tooltip, Progress, Row, Col, Tag } from "antd";
-// import { BookOpen, Users, Clock, Eye, Check, X, GraduationCap } from "lucide-react";
-// import { useDashboardAdmin } from "@/src/hook/admin/useDashboardAdmin";
-// import { FaUserClock } from "react-icons/fa";
-
-// export default function AdminDashboard() {
-//   const {
-//     stats,
-//     loading,
-//     pendingStudents,
-//     actionLoading,
-//     handleApproveRegistration,
-//     handleRejectRegistration,
-//   } = useDashboardAdmin();
-
-//   const studentColumns = [
-//     {
-//       title: "Học viên",
-//       key: "student",
-//       render: (_: any, record: any) => (
-//         <div className="flex flex-col">
-//           <span className="font-semibold text-slate-800 text-sm">{record.hoTen}</span>
-//           <span className="text-xs text-slate-400">Tài khoản: {record.taiKhoan}</span>
-//         </div>
-//       ),
-//     },
-//     {
-//       title: "Khóa học đăng ký",
-//       dataIndex: "tenKhoaHoc",
-//       key: "tenKhoaHoc",
-//       className: "text-xs font-medium text-blue-600 max-w-[180px] truncate",
-//     },
-//     {
-//       title: "Thao tác",
-//       key: "action",
-//       width: 90,
-//       align: "center" as const,
-//       render: (_: any, record: any) => (
-//         <Space size="small">
-//           <Tooltip title="Duyệt vào lớp">
-//             <Button
-//               type="primary"
-//               shape="circle"
-//               size="small"
-//               icon={<Check size={12} />}
-//               loading={actionLoading === record.taiKhoan}
-//               className="bg-green-500 hover:bg-green-600 border-transparent flex items-center justify-center"
-//               onClick={() => handleApproveRegistration(record.maKhoaHoc, record.taiKhoan)}
-//             />
-//           </Tooltip>
-//           <Tooltip title="Từ chối duyệt">
-//             <Button
-//               type="primary"
-//               danger
-//               shape="circle"
-//               size="small"
-//               icon={<X size={12} />}
-//               loading={actionLoading === record.taiKhoan}
-//               className="flex items-center justify-center"
-//               onClick={() => handleRejectRegistration(record.maKhoaHoc, record.taiKhoan)}
-//             />
-//           </Tooltip>
-//         </Space>
-//       ),
-//     },
-//   ];
-
-//   // LOGIC XỬ LÝ: Gom nhóm dữ liệu từ pendingStudents để tạo danh sách Khóa học có yêu cầu chờ duyệt
-//   const getPendingCoursesData = () => {
-//     const courseMap: Record<string, { key: string; maKhoaHoc: string; tenKhoaHoc: string; soLuongChoDuyet: number }> = {};
-    
-//     if (Array.isArray(pendingStudents)) {
-//       pendingStudents.forEach((item) => {
-//         if (!courseMap[item.maKhoaHoc]) {
-//           courseMap[item.maKhoaHoc] = {
-//             key: item.maKhoaHoc,
-//             maKhoaHoc: item.maKhoaHoc,
-//             tenKhoaHoc: item.tenKhoaHoc || "Khóa học chưa rõ tên",
-//             soLuongChoDuyet: 0,
-//           };
-//         }
-//         courseMap[item.maKhoaHoc].soLuongChoDuyet += 1;
-//       });
-//     }
-//     return Object.values(courseMap);
-//   };
-
-//   // 2. Cấu hình cột cho bảng mới bổ sung: "Khóa học chờ xét duyệt" (Ô bên trái dưới)
-//   const courseColumns = [
-//     {
-//       title: "Mã KH",
-//       dataIndex: "maKhoaHoc",
-//       key: "maKhoaHoc",
-//       width: 120,
-//       className: "text-xs font-mono text-slate-500",
-//     },
-//     {
-//       title: "Tên khóa học cần duyệt",
-//       dataIndex: "tenKhoaHoc",
-//       key: "tenKhoaHoc",
-//       className: "font-semibold text-slate-700 text-sm",
-//     },
-//     {
-//       title: "Số học viên đang đợi",
-//       dataIndex: "soLuongChoDuyet",
-//       key: "soLuongChoDuyet",
-//       width: 160,
-//       align: "center" as const,
-//       render: (count: number) => (
-//         <Tag color="orange" className="font-bold px-2.5 py-0.5 rounded-full">
-//           {count} học viên
-//         </Tag>
-//       ),
-//     },
-//   ];
-
-//   return (
-//     <div className="p-6 font-sans max-w-[1600px] mx-auto flex flex-col gap-6">
-//       <div>
-//         <h1 className="text-2xl font-bold text-slate-800">Tổng quan hệ thống</h1>
-//         <p className="text-sm text-slate-500">Thống kê hoạt động và quản lý xét duyệt Elearning.</p>
-//       </div>
-
-//       {/* CARDS THỐNG KÊ */}
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-//         <Card className="shadow-sm border-slate-100 rounded-xl" loading={loading}>
-//           <div className="flex items-center justify-between">
-//             <div>
-//               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Khóa học hiện có</p>
-//               <h3 className="text-2xl font-bold text-slate-800 mt-1">{stats.khoaHocHienCo}</h3>
-//             </div>
-//             <div className="p-3 bg-blue-50 text-blue-600 rounded-xl"><BookOpen size={20} /></div>
-//           </div>
-//         </Card>
-
-//         <Card className="shadow-sm border-slate-100 rounded-xl" loading={loading}>
-//           <div className="flex items-center justify-between">
-//             <div>
-//               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Tổng số học viên</p>
-//               <h3 className="text-2xl font-bold text-slate-800 mt-1">{stats.tongHocVien}</h3>
-//             </div>
-//             <div className="p-3 bg-green-50 text-green-600 rounded-xl"><Users size={20} /></div>
-//           </div>
-//         </Card>
-
-//         <Card className="shadow-sm border-slate-100 rounded-xl" loading={loading}>
-//           <div className="flex items-center justify-between">
-//             <div>
-//               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Yêu cầu chờ duyệt</p>
-//               <h3 className="text-2xl font-bold text-amber-600 mt-1">{stats.yeuCauChoDuyet}</h3>
-//             </div>
-//             <div className="p-3 bg-amber-50 text-amber-600 rounded-xl"><Clock size={20} /></div>
-//           </div>
-//         </Card>
-
-//         <Card className="shadow-sm border-slate-100 rounded-xl" loading={loading}>
-//           <div className="flex items-center justify-between">
-//             <div>
-//               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Lượt xem khóa học</p>
-//               <h3 className="text-2xl font-bold text-indigo-600 mt-1">{stats.tongLuotXem}</h3>
-//             </div>
-//             <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl"><Eye size={20} /></div>
-//           </div>
-//         </Card>
-//       </div>
-
-//       {/* CHIA BỐ CỤC LAYOUT 2 BÊN */}
-//       <Row gutter={[20, 20]}>
-        
-//         {/* CỘT BÊN TRÁI (RỘNG 15/24): GỒM THỐNG KÊ VÀ TABLE KHÓA HỌC CHỜ XÉT DUYỆT */}
-//         <Col xs={24} lg={14} className="flex flex-col gap-6">
-//           {/* Thống kê vai trò */}
-//           <Card 
-//             title={<span className="font-bold text-slate-800">Thống kê vai trò người dùng</span>}
-//             className="shadow-sm border-slate-100 rounded-xl"
-//             loading={loading}
-//           >
-//             <div className="py-2 flex flex-col gap-4">
-//               <div>
-//                 <div className="flex justify-between text-sm mb-1">
-//                   <span className="text-slate-600 font-medium">Học viên (HV)</span>
-//                   <span className="font-bold text-slate-800">{stats.tongHocVien} người</span>
-//                 </div>
-//                 <Progress percent={85} strokeColor="#22c55e" showInfo={false} />
-//               </div>
-//               <div>
-//                 <div className="flex justify-between text-sm mb-1">
-//                   <span className="text-slate-600 font-medium">Giáo vụ / Admin (GV)</span>
-//                   <span className="font-bold text-slate-800">{stats.tongGiaoVu} người</span>
-//                 </div>
-//                 <Progress percent={15} strokeColor="#3b82f6" showInfo={false} />
-//               </div>
-//             </div>
-//           </Card>
-
-//           {/* TABLE MỚI: DANH SÁCH KHÓA HỌC CÓ YÊU CẦU CHỜ XÉT DUYỆT */}
-//           <Card
-//             title={
-//               <div className="flex items-center gap-2 text-slate-800 font-bold text-sm py-0.5">
-//                 <GraduationCap size={18} className="text-blue-500" />
-//                 <span>Danh sách khóa học chờ xét duyệt ghi danh</span>
-//               </div>
-//             }
-//             className="shadow-sm border-slate-100 rounded-xl"
-//           >
-//             <Table
-//               dataSource={getPendingCoursesData()}
-//               columns={courseColumns}
-//               loading={loading}
-//               pagination={false}
-//               size="middle"
-//               locale={{ emptyText: "Không có khóa học nào đang đợi xét duyệt" }}
-//             />
-//           </Card>
-//         </Col>
-
-//         {/* CỘT BÊN PHẢI (RỘNG 10/24): CHI TIẾT TỪNG HỌC VIÊN CHỜ DUYỆT */}
-//         <Col xs={24} lg={10}>
-//           <Card
-//             title={
-//               <div className="flex items-center gap-2 text-slate-800 font-bold text-sm py-0.5">
-//                 <FaUserClock size={16} className="text-amber-500" />
-//                 <span>Yêu cầu đăng ký mới ({pendingStudents.length})</span>
-//               </div>
-//             }
-//             className="shadow-sm border-slate-100 rounded-xl h-full"
-//           >
-//             <Table
-//               dataSource={pendingStudents}
-//               columns={studentColumns}
-//               rowKey={(record) => `${record.taiKhoan}-${record.maKhoaHoc}`}
-//               loading={loading}
-//               pagination={{ pageSize: 5 }}
-//               size="small"
-//               locale={{ emptyText: "Không có yêu cầu đăng ký mới nào" }}
-//             />
-//           </Card>
-//         </Col>
-//       </Row>
-//     </div>
-//   );
-// }
-
 "use client";
 
 import React from "react";
-import { Card, Table, Button, Space, Tooltip, Progress, Row, Col, Tag } from "antd";
-import { BookOpen, Users, Clock, Eye, Check, X,  GraduationCap } from "lucide-react";
+import { Card, Table, Button, Space, Tooltip, Progress, Tag, Avatar } from "antd";
+import { BookOpen, Users, Clock, Eye, Check, X, GraduationCap, TrendingUp } from "lucide-react";
 import { useDashboardAdmin } from "@/src/hook/admin/useDashboardAdmin";
 import { FaUserClock } from "react-icons/fa";
 
@@ -264,70 +18,88 @@ export default function AdminDashboard() {
     handleRejectAllInCourse
   } = useDashboardAdmin();
 
-  // 1. Cấu hình cột cho bảng: "Yêu cầu đăng ký mới" (Từng học viên cụ thể ở bên phải)
+  const [isClient, setIsClient] = React.useState(false);
+
+  const getRandomColor = (name: string) => {
+    const colors = ["#1890ff", "#2f54eb", "#722ed1", "#13c2c2", "#52c41a", "#fa8c16", "#f5222d"];
+    const index = name ? name.charCodeAt(0) % colors.length : 0;
+    return colors[index];
+  };
+
   const studentColumns = [
     {
-      title: "Học viên",
+      title: "Thông tin Học viên",
       key: "student",
       render: (_: any, record: any) => (
-        <div className="flex flex-col">
-          <span className="font-semibold text-slate-800 text-sm">{record.hoTen}</span>
-          <span className="text-xs text-slate-400">Tài khoản: {record.taiKhoan}</span>
+        <div className="flex items-center gap-2 max-w-full">
+          <Avatar 
+            style={{ backgroundColor: getRandomColor(record.hoTen) }}
+            size="small"
+            className="font-bold flex-shrink-0"
+          >
+            {record.hoTen ? record.hoTen.charAt(0).toUpperCase() : "U"}
+          </Avatar>
+          <div className="flex flex-col min-w-0">
+            <span className="font-semibold text-slate-700 text-xs truncate">{record.hoTen}</span>
+            <span className="text-[10px] text-slate-400 font-mono truncate">@{record.taiKhoan}</span>
+          </div>
         </div>
       ),
     },
     {
-      title: "Khóa học đăng ký",
+      title: "Khóa học",
       dataIndex: "tenKhoaHoc",
       key: "tenKhoaHoc",
-      className: "text-xs font-medium text-blue-600 max-w-[180px] truncate",
+      render: (text: string) => (
+        <div className="max-w-[120px] truncate">
+          <Tooltip title={text} placement="topLeft">
+            <Tag color="blue" className="border-none rounded px-1.5 py-0.5 text-[10px] font-medium m-0">
+              {text}
+            </Tag>
+          </Tooltip>
+        </div>
+      ),
     },
     {
-      title: "Thao tác",
+      title: "Duyệt",
       key: "action",
-      width: 90,
+      width: 75,
       align: "center" as const,
       render: (_: any, record: any) => (
-        <Space size="small">
-          <Tooltip title="Duyệt vào lớp">
-            <Button
-              type="primary"
-              shape="circle"
-              size="small"
-              icon={<Check size={12} />}
-              loading={actionLoading === record.taiKhoan}
-              className="bg-green-500 hover:bg-green-600 border-transparent flex items-center justify-center"
-              onClick={() => handleApproveRegistration(record.maKhoaHoc, record.taiKhoan)}
-            />
-          </Tooltip>
-          <Tooltip title="Từ chối duyệt">
-            <Button
-              type="primary"
-              danger
-              shape="circle"
-              size="small"
-              icon={<X size={12} />}
-              loading={actionLoading === record.taiKhoan}
-              className="flex items-center justify-center"
-              onClick={() => handleRejectRegistration(record.maKhoaHoc, record.taiKhoan)}
-            />
-          </Tooltip>
+        <Space size={4}>
+          <Button
+            type="primary"
+            shape="circle"
+            size="small"
+            icon={<Check size={11} />}
+            loading={actionLoading === record.taiKhoan}
+            className="bg-emerald-500 hover:bg-emerald-600 border-transparent flex items-center justify-center shadow-none w-6 h-6 min-w-6"
+            onClick={() => handleApproveRegistration(record.maKhoaHoc, record.taiKhoan)}
+          />
+          <Button
+            type="primary"
+            danger
+            shape="circle"
+            size="small"
+            icon={<X size={11} />}
+            loading={actionLoading === record.taiKhoan}
+            className="bg-rose-500 hover:bg-rose-600 border-transparent flex items-center justify-center shadow-none w-6 h-6 min-w-6"
+            onClick={() => handleRejectRegistration(record.maKhoaHoc, record.taiKhoan)}
+          />
         </Space>
       ),
     },
   ];
 
-  // LOGIC XỬ LÝ: Gom nhóm dữ liệu từ pendingStudents để tạo mảng Khóa học chờ duyệt
   const getPendingCoursesData = () => {
     const courseMap: Record<string, { key: string; maKhoaHoc: string; tenKhoaHoc: string; soLuongChoDuyet: number }> = {};
-    
     if (Array.isArray(pendingStudents)) {
       pendingStudents.forEach((item) => {
         if (!courseMap[item.maKhoaHoc]) {
           courseMap[item.maKhoaHoc] = {
             key: item.maKhoaHoc,
             maKhoaHoc: item.maKhoaHoc,
-            tenKhoaHoc: item.tenKhoaHoc || "Khóa học chưa rõ tên",
+            tenKhoaHoc: item.tenKhoaHoc || "Khóa học",
             soLuongChoDuyet: 0,
           };
         }
@@ -337,59 +109,64 @@ export default function AdminDashboard() {
     return Object.values(courseMap);
   };
 
-  // 2. Cấu hình cột cho bảng: "Khóa học chờ xét duyệt" (Có thêm nút Duyệt/Hủy hàng loạt)
   const courseColumns = [
     {
-      title: "Mã KH",
+      title: "Mã Lớp",
       dataIndex: "maKhoaHoc",
       key: "maKhoaHoc",
-      width: 100,
-      className: "text-xs font-mono text-slate-500",
+      width: "15%",
+      className: "font-mono text-slate-400 font-bold truncate",
     },
     {
-      title: "Tên khóa học cần duyệt",
+      title: "Tên khóa học",
       dataIndex: "tenKhoaHoc",
       key: "tenKhoaHoc",
-      className: "font-semibold text-slate-700 text-sm",
-    },
-    {
-      title: "Trạng thái chờ",
-      dataIndex: "soLuongChoDuyet",
-      key: "soLuongChoDuyet",
-      width: 130,
-      align: "center" as const,
-      render: (count: number) => (
-        <Tag color="orange" className="font-bold px-2.5 py-0.5 rounded-full">
-          {count} học viên
-        </Tag>
+      width: "40%",
+      className: "font-semibold text-slate-700",
+      ellipsis: true,
+      render: (text: string) => (
+        <Tooltip title={text} placement="topLeft">
+          <span className="truncate block cursor-pointer">{text}</span>
+        </Tooltip>
       ),
     },
     {
-      title: "Thao tác lớp",
+      title: "Đang đợi",
+      dataIndex: "soLuongChoDuyet",
+      key: "soLuongChoDuyet",
+      width: "15%",
+      align: "center" as const,
+      render: (count: number) => (
+        <span className="bg-amber-50 text-amber-600 font-bold px-2.5 py-1 rounded-full text-xs border border-amber-100 whitespace-nowrap">
+          {count} HV
+        </span>
+      ),
+    },
+    {
+      title: "Hành động",
       key: "courseAction",
-      width: 110,
+      width: "30%",
       align: "center" as const,
       render: (_: any, record: any) => (
-        <Space size="small">
+        <Space size="small" className="flex justify-center">
           <Tooltip>
             <Button
               type="primary"
-              size="small"
-              icon={<Check size={12} />}
+              icon={<Check size={14} />}
               loading={actionLoading === `course-approve-${record.maKhoaHoc}`}
-              className="bg-emerald-600 hover:bg-emerald-700 border-transparent rounded-md font-medium text-xs flex items-center justify-center gap-1"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 border-transparent rounded-lg font-semibold flex items-center justify-center gap-1 shadow-sm px-3 py-1.5 text-xs h-8"
               onClick={() => handleApproveAllInCourse(record.maKhoaHoc)}
             >
             </Button>
           </Tooltip>
+          
           <Tooltip>
             <Button
               type="primary"
               danger
-              size="small"
-              icon={<X size={12} />}
+              icon={<X size={14} />}
               loading={actionLoading === `course-reject-${record.maKhoaHoc}`}
-              className="flex items-center justify-center rounded-md"
+              className="bg-rose-500 hover:bg-rose-600 border-transparent rounded-lg flex items-center justify-center shadow-sm w-8 h-8 min-w-8"
               onClick={() => handleRejectAllInCourse(record.maKhoaHoc)}
             />
           </Tooltip>
@@ -399,127 +176,168 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="p-6 font-sans max-w-[1600px] mx-auto flex flex-col gap-6">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-800">Tổng quan hệ thống</h1>
-        <p className="text-sm text-slate-500">Thống kê hoạt động và quản lý xét duyệt Elearning.</p>
+    <div className="w-full max-w-full min-h-screen bg-slate-50/50 p-4 md:p-6 flex flex-col gap-6 overflow-hidden box-border">
+      
+      {/* HEADER SECTION  */}
+      <div className="w-full bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-xl font-bold text-slate-800 flex items-center gap-2 m-0">
+            Tổng quan hệ thống <TrendingUp className="text-blue-500" size={20} />
+          </h1>
+          <p className="text-xs text-slate-400 m-0">Thống kê chỉ số thời gian thực và điều phối dữ liệu lớp học.</p>
+        </div>
+
+        <div className="flex items-center gap-4 bg-slate-50/80 px-4 py-2 rounded-xl border border-slate-100 self-stretch sm:self-auto justify-between">
+          <div className="flex flex-col text-right">
+            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+              Phiên làm việc Giáo vụ
+            </span>
+            <span className="text-xs font-bold text-slate-600 mt-0.5">
+              {isClient 
+                ? new Date().toLocaleDateString('vi-VN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+                : "Đang tải thời gian..."
+              }
+            </span>
+          </div>
+          
+          <div className="w-[1px] h-8 bg-slate-200 hidden sm:block"></div>
+
+          <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-600 px-2.5 py-1 rounded-lg text-xs font-semibold border border-emerald-100 animate-pulse">
+            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+            Hệ thống ổn định
+          </div>
+        </div>
       </div>
 
-      {/* CARDS THỐNG KÊ */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <Card className="shadow-sm border-slate-100 rounded-xl" loading={loading}>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Khóa học hiện có</p>
-              <h3 className="text-2xl font-bold text-slate-800 mt-1">{stats.khoaHocHienCo}</h3>
+      {/* 4 Ô CARDS CHỈ SỐ */}
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Card 1 */}
+        <Card className="border border-slate-100 shadow-sm rounded-xl bg-white w-full" loading={loading} styles={{ body: { padding: "16px" } }}>
+          <div className="flex items-center justify-between w-full">
+            <div className="flex flex-col gap-1 min-w-0">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Khóa học hiện có</span>
+              <h3 className="text-3xl font-bold text-slate-800 m-0 leading-none pt-1">
+                {stats.khoaHocHienCo}
+              </h3>
             </div>
-            <div className="p-3 bg-blue-50 text-blue-600 rounded-xl"><BookOpen size={20} /></div>
+            <div className="p-3 bg-blue-50 text-blue-500 rounded-xl flex-shrink-0 ml-2"><BookOpen size={18} /></div>
           </div>
         </Card>
 
-        <Card className="shadow-sm border-slate-100 rounded-xl" loading={loading}>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Tổng số học viên</p>
-              <h3 className="text-2xl font-bold text-slate-800 mt-1">{stats.tongHocVien}</h3>
+        {/* Card 2 */}
+        <Card className="border border-slate-100 shadow-sm rounded-xl bg-white w-full" loading={loading} styles={{ body: { padding: "16px" } }}>
+          <div className="flex items-center justify-between w-full">
+            <div className="flex flex-col gap-1 min-w-0">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Tổng số học viên</span>
+              <h3 className="text-3xl font-bold text-slate-800 m-0 leading-none pt-1">
+                {stats.tongHocVien}
+              </h3>
             </div>
-            <div className="p-3 bg-green-50 text-green-600 rounded-xl"><Users size={20} /></div>
+            <div className="p-3 bg-green-50 text-green-500 rounded-xl flex-shrink-0 ml-2"><Users size={18} /></div>
           </div>
         </Card>
 
-        <Card className="shadow-sm border-slate-100 rounded-xl" loading={loading}>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Yêu cầu chờ duyệt</p>
-              <h3 className="text-2xl font-bold text-amber-600 mt-1">{stats.yeuCauChoDuyet}</h3>
+        {/* Card 3 */}
+        <Card className="border border-slate-100 shadow-sm rounded-xl bg-white w-full" loading={loading} styles={{ body: { padding: "16px" } }}>
+          <div className="flex items-center justify-between w-full">
+            <div className="flex flex-col gap-1 min-w-0">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Yêu cầu chờ duyệt</span>
+              <h3 className="text-3xl font-bold text-amber-500 m-0 leading-none pt-1">
+                {stats.yeuCauChoDuyet}
+              </h3>
             </div>
-            <div className="p-3 bg-amber-50 text-amber-600 rounded-xl"><Clock size={20} /></div>
+            <div className="p-3 bg-amber-50 text-amber-600 rounded-xl flex-shrink-0 ml-2"><Clock size={18} /></div>
           </div>
         </Card>
 
-        <Card className="shadow-sm border-slate-100 rounded-xl" loading={loading}>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Lượt xem khóa học</p>
-              <h3 className="text-2xl font-bold text-indigo-600 mt-1">{stats.tongLuotXem}</h3>
+        {/* Card 4 */}
+        <Card className="border border-slate-100 shadow-sm rounded-xl bg-white w-full" loading={loading} styles={{ body: { padding: "16px" } }}>
+          <div className="flex items-center justify-between w-full">
+            <div className="flex flex-col gap-1 min-w-0">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Lượt xem khóa học</span>
+              <h3 className="text-3xl font-bold text-indigo-500 m-0 leading-none pt-1">
+                {stats.tongLuotXem}
+              </h3>
             </div>
-            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl"><Eye size={20} /></div>
+            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl flex-shrink-0 ml-2"><Eye size={18} /></div>
           </div>
         </Card>
       </div>
 
-      {/* CHIA BỐ CỤC LAYOUT 2 BÊN */}
-      <Row gutter={[20, 20]}>
+      {/* KHU VỰC BẢNG DỮ LIỆU */}
+      <div className="w-full flex flex-col lg:flex-row gap-6 max-w-full overflow-hidden">
         
-        {/* CỘT BÊN TRÁI: GỒM THỐNG KÊ VÀ BẢNG KHÓA HỌC CHỜ DUYỆT */}
-        <Col xs={24} lg={14} className="flex flex-col gap-6">
-          <Card 
-            title={<span className="font-bold text-slate-800">Thống kê vai trò người dùng</span>}
-            className="shadow-sm border-slate-100 rounded-xl"
-            loading={loading}
-          >
-            <div className="py-2 flex flex-col gap-4">
+        {/* KHỐI BÊN TRÁI: TIẾN ĐỘ & BẢNG KHÓA HỌC */}
+        <div className="w-full lg:w-[60%] flex flex-col gap-6 overflow-hidden">
+          
+          <Card title={<span className="font-bold text-slate-800 text-sm">Cơ cấu vai trò nhân sự</span>} className="border border-slate-100 shadow-sm rounded-xl bg-white w-full">
+            <div className="flex flex-col gap-4 py-1">
               <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-slate-600 font-medium">Học viên (HV)</span>
-                  <span className="font-bold text-slate-800">{stats.tongHocVien} người</span>
+                <div className="flex justify-between text-xs font-medium mb-1">
+                  <span className="text-slate-500">Học viên hệ thống (HV)</span>
+                  <span className="font-bold text-green-600">{stats.tongHocVien}</span>
                 </div>
-                <Progress percent={85} strokeColor="#22c55e" showInfo={false} />
+                <Progress percent={85} strokeColor="#22c55e" size={6} showInfo={false} />
               </div>
               <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-slate-600 font-medium">Giáo vụ / Admin (GV)</span>
-                  <span className="font-bold text-slate-800">{stats.tongGiaoVu} người</span>
+                <div className="flex justify-between text-xs font-medium mb-1">
+                  <span className="text-slate-500">Giáo vụ Ban Quản trị (GV)</span>
+                  <span className="font-bold text-blue-600">{stats.tongGiaoVu}</span>
                 </div>
-                <Progress percent={15} strokeColor="#3b82f6" showInfo={false} />
+                <Progress percent={15} strokeColor="#3b82f6" size={6} showInfo={false} />
               </div>
             </div>
           </Card>
 
-          {/* TABLE KHÓA HỌC CHỜ XÉT DUYỆT CÓ NÚT HÀNH ĐỘNG HÀNG LOẠT */}
           <Card
             title={
-              <div className="flex items-center gap-2 text-slate-800 font-bold text-sm py-0.5">
-                <GraduationCap size={18} className="text-blue-500" />
-                <span>Danh sách khóa học chờ xét duyệt ghi danh</span>
+              <div className="flex items-center gap-2 text-slate-800 font-bold text-sm">
+                <GraduationCap size={16} className="text-blue-500" />
+                <span>Khóa học có yêu cầu ghi danh</span>
               </div>
             }
-            className="shadow-sm border-slate-100 rounded-xl"
+            className="border border-slate-100 shadow-sm rounded-xl bg-white w-full overflow-hidden"
           >
-            <Table
-              dataSource={getPendingCoursesData()}
-              columns={courseColumns}
-              loading={loading}
-              pagination={{ pageSize: 3, size: "small" }}
-              size="middle"
-              locale={{ emptyText: "Không có khóa học nào đang đợi xét duyệt" }}
-            />
+            <div className="w-full">
+              <Table
+                dataSource={getPendingCoursesData()}
+                columns={courseColumns}
+                loading={loading}
+                pagination={{ pageSize: 3 }}
+                className="w-full"
+                locale={{ emptyText: "Không có lớp chờ xét duyệt" }}
+              />
+            </div>
           </Card>
-        </Col>
+        </div>
 
-        {/* CỘT BÊN PHẢI: CHI TIẾT TỪNG YÊU CẦU ĐĂNG KÝ HỌC VIÊN LẺ */}
-        <Col xs={24} lg={10}>
+        {/* KHỐI BÊN PHẢI: CHI TIẾT YÊU CẦU ĐĂNG KÝ LẺ */}
+        <div className="w-full lg:w-[40%] overflow-hidden">
           <Card
             title={
-              <div className="flex items-center gap-2 text-slate-800 font-bold text-sm py-0.5">
+              <div className="flex items-center gap-2 text-slate-800 font-bold text-sm">
                 <FaUserClock size={16} className="text-amber-500" />
-                <span>Yêu cầu đăng ký mới ({pendingStudents.length})</span>
+                <span>Yêu cầu đăng ký lẻ ({pendingStudents.length})</span>
               </div>
             }
-            className="shadow-sm border-slate-100 rounded-xl h-full"
+            className="border border-slate-100 shadow-sm rounded-xl bg-white w-full h-full overflow-hidden"
           >
-            <Table
-              dataSource={pendingStudents}
-              columns={studentColumns}
-              rowKey={(record) => `${record.taiKhoan}-${record.maKhoaHoc}`}
-              loading={loading}
-              pagination={{ pageSize: 5, size: "small" }}
-              size="small"
-              locale={{ emptyText: "Không có yêu cầu đăng ký mới nào" }}
-            />
+            <div className="w-full">
+              <Table
+                dataSource={pendingStudents}
+                columns={studentColumns}
+                rowKey={(record) => `${record.taiKhoan}-${record.maKhoaHoc}`}
+                loading={loading}
+                pagination={{ pageSize: 5, size: "small" }}
+                size="small"
+                className="w-full"
+                locale={{ emptyText: "Không có yêu cầu đăng ký mới" }}
+              />
+            </div>
           </Card>
-        </Col>
-      </Row>
+        </div>
+
+      </div>
     </div>
   );
 }

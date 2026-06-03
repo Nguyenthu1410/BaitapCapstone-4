@@ -9,7 +9,13 @@ export const useAdminProfile = () => {
     const fetchProfile = async () => {
       setIsLoading(true);
       try {
-        const res = await userServices.getAccountInfo();
+        const localUser = localStorage.getItem("userLogin");
+        if (!localUser) return;
+
+        const userInfo = JSON.parse(localUser);
+
+        const res = await userServices.getAccountInfo(userInfo.taiKhoan);
+        
         setProfile(res);
       } catch (error) {
         console.error("Lỗi lấy thông tin tài khoản admin:", error);

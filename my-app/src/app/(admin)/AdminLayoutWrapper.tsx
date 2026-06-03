@@ -82,16 +82,6 @@ export default function AdminLayoutWrapper({
 
       <Layout className="bg-[#f5f7fa]">
         <Header className="bg-white px-6 flex items-center shadow-sm h-16 leading-none border-b border-gray-100">
-          {/* KHU VỰC THANH TÌM KIẾM */}
-          <div className="hidden md:flex flex-1 max-w-md">
-            <Input
-              size="large"
-              placeholder="Tìm kiếm khóa học, người dùng..."
-              prefix={<Search size={16} className="text-gray-400 mr-2" />}
-              className="rounded-full bg-gray-50 border-transparent hover:bg-white hover:border-blue-400 focus-within:bg-white focus-within:border-blue-500 transition-all shadow-none"
-            />
-          </div>
-
           {/* KHU VỰC AVATAR VÀ THÔNG BÁO */}
           <div className="flex items-center gap-6 h-full justify-end ml-auto">
             <div className="flex items-center cursor-pointer group px-1">
@@ -106,7 +96,7 @@ export default function AdminLayoutWrapper({
             <Dropdown
               menu={{
                 items: [
-                  { key: "profile", label: "Hồ sơ", icon: <Users size={14} /> },
+                  { key: "/admin/profile", label: "Hồ sơ", icon: <Users size={14} /> },
                   {
                     key: "logout",
                     label: "Đăng xuất",

@@ -43,7 +43,7 @@ export default function AdminProfilePage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        {/* BÊN TRÁI: KHỐI AVATAR VÀ VAI TRÒ */}
+        {/* KHỐI AVATAR VÀ VAI TRÒ */}
         <Card className="md:col-span-1 rounded-xl shadow-sm border border-gray-100 text-center flex flex-col items-center justify-center p-6 bg-white">
           <div className="flex justify-center w-full mb-4">
             <Avatar size={100} className="bg-blue-600 text-white text-4xl font-black shadow-md flex items-center justify-center">
@@ -57,7 +57,7 @@ export default function AdminProfilePage() {
           </Tag>
         </Card>
 
-        {/* BÊN PHẢI: THÔNG TIN CHI TIẾT */}
+        {/* THÔNG TIN CHI TIẾT */}
         <Card className="md:col-span-2 rounded-xl shadow-sm border border-gray-100 bg-white">
           <h3 className="text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
             <ShieldCheck size={22} className="text-blue-600" /> Chi tiết bảo mật tài khoản

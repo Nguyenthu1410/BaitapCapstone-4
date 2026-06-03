@@ -3,9 +3,9 @@ import { fetcher, poster } from "./apiClients";
 
 export const userServices = {
   // THÔNG TIN TÀI KHOẢN
-  getAccountInfo: async () => {
-    return await fetcher(ENDPOINTS.THONG_TIN_TAI_KHOAN);
-  },
+  getAccountInfo: (taiKhoan: string) => {
+  return poster(ENDPOINTS.THONG_TIN_TAI_KHOAN, taiKhoan);
+},
 
   // LẤY DANH SÁCH NGƯỜI DÙNG PHÂN TRANG
   getListUserPagination: async (page: number = 1, pageSize: number = 10) => {

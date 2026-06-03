@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Spin } from "antd";
+import AdminLayoutWrapper from "./AdminLayoutWrapper";
+import { UserInfo } from "@/src/types/course";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -12,30 +14,27 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   useEffect(() => {
     const checkAuth = () => {
       try {
-        // 1. Lấy chuỗi thông tin user đăng nhập từ localStorage.
-        // Bạn nhớ kiểm tra xem lúc Đăng nhập, bạn lưu tên key là 'user_info', 'user' hay 'USER_LOGIN' nhé!
-        const localUser = localStorage.getItem("user_info") || localStorage.getItem("user") || localStorage.getItem("USER_LOGIN");
+        if (typeof window === "undefined") return;
+
+        const localUser = localStorage.getItem("userLogin");
         
-        if (!localUser) {
-          // Nếu không tìm thấy ai đăng nhập -> Đẩy về trang đăng nhập
-          router.push("/login");
+        if (!localUser || localUser === "undefined" || localUser === "null") {
+          router.push("/signIn");
           return;
         }
 
-        const userInfo = JSON.parse(localUser);
+        const userInfo = JSON.parse(localUser) as UserInfo;
 
-        // 2. Kiểm tra vai trò: Nếu KHÔNG PHẢI là Giáo vụ ('GV') thì chặn lại
-        if (userInfo.maLoaiNguoiDung !== "GV") {
+        if (!userInfo || userInfo.maLoaiNguoiDung !== "GV") {
           alert("Tài khoản của bạn không có quyền truy cập vào khu vực quản trị!");
-          router.push("/"); // Đẩy học viên về trang chủ client
+          router.push("/"); 
           return;
         }
 
-        // 3. Nếu đúng là Giáo vụ ('GV') -> Kích hoạt cho phép vào
         setIsAuthorized(true);
       } catch (error) {
         console.error("Lỗi kiểm tra quyền hạn:", error);
-        router.push("/login");
+        router.push("/signIn");
       } finally {
         setLoading(false);
       }
@@ -44,15 +43,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     checkAuth();
   }, [router]);
 
-  // Trong vài mili-giây hệ thống đang đọc localStorage thì hiện vòng xoay chờ
   if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center bg-slate-50">
-        <Spin size="large" tip="Đang xác thực quyền quản trị..." />
+        <Spin size="large" description="Đang xác thực quyền quản trị Giáo vụ..." />
       </div>
     );
   }
 
-  // Đúng quyền Giáo vụ mới hiển thị các trang Admin con (children)
-  return isAuthorized ? <>{children}</> : null;
+  return isAuthorized ? (
+    <AdminLayoutWrapper>{children}</AdminLayoutWrapper>
+  ) : null;
 }

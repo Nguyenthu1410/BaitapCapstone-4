@@ -63,6 +63,14 @@ export interface SigninForm {
   matKhau: string;
 }
 
+export interface UserInfo {
+  maLoaiNguoiDung: string;
+  taiKhoan: string;
+  hoTen: string;
+  [key: string]: any; 
+}
+
+
 export interface UserProfile {
   taiKhoan: string;
   hoTen: string;
