@@ -37,13 +37,11 @@ export const ENDPOINTS = {
 
   LAY_DANH_SACH_KHOA_HOC_CHUA_GHI_DANH: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh`,
 
-  LAY_DANH_SACH_NGUOI_DUNG_DA_GHI_DANH_VAO_KHOA_HOC: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`,
-
   LAY_DANH_SACH_HOC_VIEN_CHO_XET_DUYET: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet`,
 
-  LAY_DANH_SACH_HOC_VIEN_DA_XET_DUYET: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet`,
+  LAY_DANH_SACH_KHOA_HOC_CHO_XET_DUYET: `${BASE_URL}`,
 
-  LAY_DANH_SACH_HOC_VIEN_DA_THAM_GIA_KHOA_HOC: `${BASE_URL}/QuanLyKhoaHoc/LayDanhSachKhoaHoc`,
+  LAY_DANH_SACH_KHOA_HOC_DA_XET_DUYET: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet`,
 
   LAY_DANH_SACH_HOC_VIEN_KHOA_HOC: `${BASE_URL}/QuanLyKhoaHoc/LayDanhSachKhoaHoc`,
 

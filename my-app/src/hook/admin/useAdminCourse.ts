@@ -75,26 +75,6 @@ export const useAdminCourses = () => {
   }, [courses, searchText]);
 
   // 6. HÀM XỬ LÝ: THÊM KHÓA HỌC
-  // const handleAddCourse = async (values: any) => {
-  //   setIsSubmitting(true);
-  //   try {
-  //     await courseService.themKhoaHoc(values);
-  //     message.success("Thêm khóa học thành công!");
-      
-  //     setIsAddModalOpen(false);
-  //     const newData = await courseService.getList();
-  //     setAllCourses(newData);
-  //     setCourses(newData);
-      
-  //     return true;
-  //   } catch (error: any) {
-  //     message.error(error.message || "Có lỗi xảy ra khi thêm khóa học!");
-  //     return false;
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
-
   const handleAddCourse = async (values: CoursePayload) => {
     try {
       // Gọi API thêm khóa học

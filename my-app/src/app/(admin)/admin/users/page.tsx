@@ -41,10 +41,9 @@ export default function UserManagementPage() {
     return () => clearTimeout(delayDebounceFn);
   }, [inputValue, setSearchKeyword, setPage]);
 
-  // LOGIC LỌC DANH MỤC: Chặn dữ liệu trước khi đưa vào bảng
   const displayUsers = users.filter((user) => {
-    if (roleFilter === "ALL") return true; // Nếu chọn "Tất cả" thì giữ nguyên
-    return user.maLoaiNguoiDung === roleFilter; // Nếu chọn HV/GV thì chỉ lấy đúng loại đó
+    if (roleFilter === "ALL") return true; 
+    return user.maLoaiNguoiDung === roleFilter;
   });
 
   const columns = [

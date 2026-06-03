@@ -134,3 +134,9 @@ export interface EnrollUserModalProps {
   onClose: () => void;
   course: any; 
 }
+
+export interface Student {
+  taiKhoan: string;
+  hoTen: string;
+  biDanh: string;
+}

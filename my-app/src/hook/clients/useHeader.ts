@@ -107,7 +107,6 @@ export const useHeader = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // Trả về những data và function mà giao diện Header cần dùng
   return {
     user,
     isMounted,

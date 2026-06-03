@@ -31,7 +31,7 @@ const Header: React.FC = () => {
             <Link href={PUBLIC_PATH.HOME} className="flex items-center group shrink-0" onClick={() => setIsMobileMenuOpen(false)}>
               <div className="flex items-baseline italic">
                 <span className="text-3xl font-black text-[#1a73e8] group-hover:scale-105 transition-transform duration-300">E-</span>
-                <span className="text-2xl font-extrabold tracking-widest text-slate-800 uppercase">Learning</span>
+                <span className="text-2xl font-extrabold tracking-widest text-slate-800 uppercase">Học Tập</span>
               </div>
               <div className="ml-1.5 h-2 w-2 rounded-full bg-orange-500 self-end mb-1.5 animate-pulse"></div>
             </Link>
@@ -47,18 +47,18 @@ const Header: React.FC = () => {
                 placeholder="Tìm kiếm khóa học"
                 className="w-12 xl:w-16 focus:w-48 xl:focus:w-64 hover:w-48 xl:hover:w-64 transition-all duration-400 ease-out bg-slate-100 border border-transparent focus:bg-white focus:border-blue-300 focus:shadow-[0_4px_20px_rgba(26,115,232,0.15)] rounded-full pl-10 focus:pl-11 hover:pl-11 pr-2 h-10 text-[13px] text-slate-700 outline-none placeholder-slate-400 select-text"
               />
-              <button type="submit" className="hidden">Search</button>
+              <button type="submit" className="hidden">Tìm Kiếm</button>
             </form>
           </div>
 
           {/* NAVIGATION */}
           <div className="hidden lg:flex flex-1 justify-center transition-all duration-400">
             <div className="flex items-center space-x-4 xl:space-x-8 text-[12px] xl:text-[13px] font-bold text-slate-600 uppercase tracking-widest bg-white/50 px-2 rounded-full whitespace-nowrap">
-              <Link href={PUBLIC_PATH.HOME} className="hover:text-[#1a73e8] transition-colors">Home</Link>
-              <Link href={PUBLIC_PATH.COURSES} className="hover:text-[#1a73e8] transition-colors">Courses</Link>
-              <Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-[#1a73e8] transition-colors">Mentors</Link>
-              <Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-[#1a73e8] transition-colors">About Us</Link>
-              <Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-[#1a73e8] transition-colors">Contact</Link>
+              <Link href={PUBLIC_PATH.HOME} className="hover:text-[#1a73e8] transition-colors">Trang Chủ</Link>
+              <Link href={PUBLIC_PATH.COURSES} className="hover:text-[#1a73e8] transition-colors">Khóa Học</Link>
+              <Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-[#1a73e8] transition-colors">Cố Vấn</Link>
+              <Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-[#1a73e8] transition-colors">Về Chúng Tôi</Link>
+              <Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-[#1a73e8] transition-colors">Liên Hệ</Link>
             </div>
           </div>
 
@@ -157,11 +157,11 @@ const Header: React.FC = () => {
             </form>
 
             <div className="grid grid-cols-2 gap-4">
-              <Link href={PUBLIC_PATH.HOME} onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm text-center hover:bg-blue-50 hover:text-[#1a73e8] transition-colors active:scale-95">HOME</Link>
-              <Link href={PUBLIC_PATH.COURSES} onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm text-center hover:bg-blue-50 hover:text-[#1a73e8] transition-colors active:scale-95">COURSES</Link>
-              <Link href={PUBLIC_PATH.COMING_SOON} onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm text-center hover:bg-blue-50 hover:text-[#1a73e8] transition-colors active:scale-95">MENTORS</Link>
-              <Link href={PUBLIC_PATH.COMING_SOON} onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm text-center hover:bg-blue-50 hover:text-[#1a73e8] transition-colors active:scale-95">ABOUT US</Link>
-              <Link href={PUBLIC_PATH.COMING_SOON} onClick={() => setIsMobileMenuOpen(false)} className="col-span-2 p-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm text-center hover:bg-blue-50 hover:text-[#1a73e8] transition-colors active:scale-95">CONTACT US</Link>
+              <Link href={PUBLIC_PATH.HOME} onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm text-center hover:bg-blue-50 hover:text-[#1a73e8] transition-colors active:scale-95">TRANG CHỦ</Link>
+              <Link href={PUBLIC_PATH.COURSES} onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm text-center hover:bg-blue-50 hover:text-[#1a73e8] transition-colors active:scale-95">KHÓA HỌC</Link>
+              <Link href={PUBLIC_PATH.COMING_SOON} onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm text-center hover:bg-blue-50 hover:text-[#1a73e8] transition-colors active:scale-95">CỐ VẤN</Link>
+              <Link href={PUBLIC_PATH.COMING_SOON} onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm text-center hover:bg-blue-50 hover:text-[#1a73e8] transition-colors active:scale-95">VỀ CHÚNG TÔI</Link>
+              <Link href={PUBLIC_PATH.COMING_SOON} onClick={() => setIsMobileMenuOpen(false)} className="col-span-2 p-3 rounded-xl bg-slate-50 text-slate-700 font-bold text-sm text-center hover:bg-blue-50 hover:text-[#1a73e8] transition-colors active:scale-95">LIÊN HỆ</Link>
             </div>
 
             <hr className="border-slate-100" />

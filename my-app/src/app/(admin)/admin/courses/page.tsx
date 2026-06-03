@@ -98,7 +98,6 @@ export default function CourseManagementPage() {
                   okType: 'danger',
                   cancelText: 'Hủy',
                   onOk: async () => {
-                    // Nếu bấm đồng ý thì mới gọi hàm xóa
                     await handleDeleteCourse(record.maKhoaHoc);
                   }
                 });

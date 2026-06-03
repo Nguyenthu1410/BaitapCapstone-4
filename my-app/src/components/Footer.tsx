@@ -12,12 +12,12 @@ export default function Footer() {
             <Link href="/" className="flex items-center text-3xl font-medium tracking-wide text-slate-800 mb-10">
               <div className="flex items-baseline italic">
                 <span className="text-3xl font-black text-[#1a73e8] group-hover:scale-105 transition-transform duration-300">E-</span>
-                <span className="text-2xl font-extrabold tracking-widest text-slate-800 uppercase">Learning</span>
+                <span className="text-2xl font-extrabold tracking-widest text-slate-800 uppercase">Học Tập</span>
               </div>
             </Link>
             
             <p className="text-slate-700 font-medium mb-4">
-              Connect with us
+              Kết nối với chúng tôi
             </p>
             
             <div className="flex items-center gap-5 text-slate-600">
@@ -49,28 +49,28 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col">
-            <h3 className="text-slate-800 font-semibold text-lg mb-6">Quick Links</h3>
+            <h3 className="text-slate-800 font-semibold text-lg mb-6">Liên kết nhanh</h3>
             <ul className="space-y-4 text-slate-600 font-medium">
-              <li><Link href={PUBLIC_PATH.HOME} className="hover:text-blue-600 transition-colors">Home</Link></li>
-              <li><Link href={PUBLIC_PATH.COURSES} className="hover:text-blue-600 transition-colors">Courses</Link></li>
-              <li><Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-blue-600 transition-colors">Mentors</Link></li>
-              <li><Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-blue-600 transition-colors">About Us</Link></li>
-              <li><Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-blue-600 transition-colors">Contact us</Link></li>
+              <li><Link href={PUBLIC_PATH.HOME} className="hover:text-blue-600 transition-colors">Trang chủ</Link></li>
+              <li><Link href={PUBLIC_PATH.COURSES} className="hover:text-blue-600 transition-colors">Khóa học</Link></li>
+              <li><Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-blue-600 transition-colors">Cố vấn</Link></li>
+              <li><Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-blue-600 transition-colors">Về chúng tôi</Link></li>
+              <li><Link href={PUBLIC_PATH.COMING_SOON} className="hover:text-blue-600 transition-colors">Liên hệ với chúng tôi</Link></li>
             </ul>
           </div>
 
           <div className="flex flex-col">
-            <h3 className="text-slate-800 font-semibold text-lg mb-6">Legal</h3>
+            <h3 className="text-slate-800 font-semibold text-lg mb-6">Pháp lý</h3>
             <ul className="space-y-4 text-slate-600 font-medium">
-              <li><Link href="#" className="hover:text-blue-600 transition-colors">Trust & Safety</Link></li>
-              <li><Link href="#" className="hover:text-blue-600 transition-colors">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-blue-600 transition-colors">Terms & Conditions</Link></li>
-              <li><Link href="#" className="hover:text-blue-600 transition-colors">Fraud Alert</Link></li>
+              <li><Link href="#" className="hover:text-blue-600 transition-colors">Tin cậy & An toàn</Link></li>
+              <li><Link href="#" className="hover:text-blue-600 transition-colors">Chính sách bảo mật</Link></li>
+              <li><Link href="#" className="hover:text-blue-600 transition-colors">Điều khoản và Điều kiện</Link></li>
+              <li><Link href="#" className="hover:text-blue-600 transition-colors">Cảnh báo gian lận</Link></li>
             </ul>
           </div>
 
           <div className="flex flex-col">
-            <h3 className="text-slate-800 font-semibold text-lg mb-6">Contact Us</h3>
+            <h3 className="text-slate-800 font-semibold text-lg mb-6">Liên hệ với chúng tôi</h3>
             <ul className="space-y-4 text-slate-600 font-medium">
               <li>193, Viet Nam</li>
               <li>+1125156363</li>

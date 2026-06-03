@@ -4,7 +4,7 @@ import { fetcher, poster } from "./apiClients";
 export const userServices = {
   // THÔNG TIN TÀI KHOẢN
   getAccountInfo: async () => {
-    return await poster(ENDPOINTS.THONG_TIN_TAI_KHOAN, null, 'POST'); 
+    return await fetcher(ENDPOINTS.THONG_TIN_TAI_KHOAN);
   },
 
   // LẤY DANH SÁCH NGƯỜI DÙNG PHÂN TRANG
@@ -63,21 +63,39 @@ export const userServices = {
     return await poster(fullUrl, null, 'DELETE');
   },
 
-  // LẤY DANH SÁCH HỌC VIÊN CHỜ XÉT DUYỆT CỦA KHÓA HỌC
+  // DANH SÁCH HỌC VIÊN CHỜ XÉT DUYỆT
   getPendingStudents: async (maKhoaHoc: string) => {
-    const fullUrl = "https://elearningnew.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet";
-    return await poster(fullUrl, { maKhoaHoc }, 'POST');
+    return await poster(
+      ENDPOINTS.LAY_DANH_SACH_HOC_VIEN_CHO_XET_DUYET,
+      { maKhoaHoc },
+      'POST'
+    );
   },
 
-  // LẤY DANH SÁCH HỌC VIÊN ĐÃ THAM GIA KHÓA HỌC
+  // DANH SÁCH HỌC VIÊN ĐÃ DUYỆT VÀO KHÓA HỌC
   getApprovedStudents: async (maKhoaHoc: string) => {
-    const fullUrl = "https://elearningnew.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc";
-    return await poster(fullUrl, { maKhoaHoc }, 'POST');
+    return await poster(
+      ENDPOINTS.LAY_DANH_SACH_HOC_VIEN_KHOA_HOC,
+      { maKhoaHoc },
+      'POST'
+    );
   },
 
-  // HỦY GHI DANH CÓ THAM SỐ TÀI KHOẢN 
-  adminHuyGhiDanh: async (maKhoaHoc: string, taiKhoan: string) => {
-    const fullUrl = "https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/HuyGhiDanh";
-    return await poster(fullUrl, { maKhoaHoc, taiKhoan }, 'POST');
-  }
+  // XÉT DUYỆT GHI DANH
+  approveStudent: async (maKhoaHoc: string, taiKhoan: string) => {
+    return await poster(
+      ENDPOINTS.GHI_DANH_KHOA_HOC, 
+      { maKhoaHoc, taiKhoan }, 
+      'POST'
+    );
+  },
+
+  // TỪ CHỐI DUYỆT 
+  rejectStudent: async (maKhoaHoc: string, taiKhoan: string) => {
+    return await poster(
+      ENDPOINTS.HUY_GHI_DANH, 
+      { maKhoaHoc, taiKhoan }, 
+      'POST'
+    );
+  },
 };

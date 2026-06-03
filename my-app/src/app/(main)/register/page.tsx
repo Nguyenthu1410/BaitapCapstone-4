@@ -123,22 +123,6 @@ export default function RegisterPage() {
           )}
         </div>
 
-        {/* PHÂN LOẠI NGƯỜI DÙNG */}
-        <div>
-          <select
-            {...register("maLoaiNguoiDung", {
-              required: "Vui lòng chọn loại người dùng",
-            })}
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none border-gray-300 bg-white"
-          >
-            <option value="HV">Học viên</option>
-            <option value="GV">Giáo vụ</option>
-          </select>
-          {errors.maLoaiNguoiDung && (
-            <p className="text-red-500 text-xs mt-1">{errors.maLoaiNguoiDung.message}</p>
-          )}
-        </div>
-
         <button
           type="submit"
           className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-lg transition"

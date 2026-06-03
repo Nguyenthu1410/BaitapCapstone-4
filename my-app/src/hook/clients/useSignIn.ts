@@ -26,14 +26,11 @@ export const useSignIn = () => {
     try {
       const result = await authServices.login(formData);
 
-      // Lưu thông tin người dùng vào máy
       localStorage.setItem('userLogin', JSON.stringify(result));
       window.dispatchEvent(new Event('storage'));
 
       alert('Đăng nhập thành công!');
-      
-      // Chuyển hướng: Nếu là Giáo vụ (hoặc tk nguyen-charlie) thì vào Admin, còn lại về Trang chủ
-      if (result.maLoaiNguoiDung === 'GV' || result.taiKhoan === 'nguyen-charlie') {
+      if (result.maLoaiNguoiDung === 'GV') {
         router.push('/admin/users'); 
       } else {
         router.push(PUBLIC_PATH.HOME); 

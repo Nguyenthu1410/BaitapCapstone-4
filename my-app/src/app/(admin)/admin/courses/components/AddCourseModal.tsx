@@ -68,7 +68,6 @@ export default function AddCourseModal({
             />
           </Form.Item>
           
-          {/* ĐÃ ĐỔI THÀNH NÚT CHỌN FILE Ở ĐÂY */}
           <Form.Item
             name="hinhAnh"
             label="Hình ảnh đại diện"

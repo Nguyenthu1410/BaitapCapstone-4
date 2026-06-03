@@ -114,7 +114,6 @@ export const useProfile = () => {
       setUser(result);
       setIsEdit(false);
       
-      // Đồng bộ thông tin mới về localStorage để các component Header/Navbar cập nhật theo
       const currentUserLogin = JSON.parse(localStorage.getItem("userLogin") || "{}");
       localStorage.setItem("userLogin", JSON.stringify({ 
         ...currentUserLogin, 
