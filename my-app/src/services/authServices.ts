@@ -15,16 +15,15 @@ export const authServices = {
       body: JSON.stringify({
         ...data,
         maNhom: MA_NHOM,
-        maLoaiNguoiDung: "HV", 
+        // SỬA DÒNG DƯỚI ĐÂY: Ưu tiên lấy data từ form, nếu không có mới mặc định là HV
+        maLoaiNguoiDung: data.maLoaiNguoiDung || "HV", 
       }),
     });
-
     if (!res.ok) {
       const errorData = await res.json();
       throw { response: { data: errorData, status: res.status } };
     }
-    return res.json();
-  },
+    return res.json();  },
 
   // 2. Hàm đăng nhập
   login: async (data: SigninForm) => {

@@ -1,61 +1,22 @@
 "use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { authServices } from '@/src/services/authServices';
+import React from 'react';
 import { PUBLIC_PATH } from '@/src/constant/path';
 import Link from 'next/link';
+import { useSignIn } from '@/src/hook/clients/useSignIn';
 
 export default function SigninPage() {
-  const router = useRouter();
-  const [formData, setFormData] = useState({
-    taiKhoan: '',
-    matKhau: ''
-  });
-  const [errorMsg, setErrorMsg] = useState('');
-  
-  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
-  const [forgotEmail, setForgotEmail] = useState('');
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMsg(''); 
-    try {
-      const result = await authServices.login(formData);
-
-     // 1. Lưu thông tin đăng nhập
-      localStorage.setItem('userLogin', JSON.stringify(result));
-
-     // 2. MỚI THÊM: Báo cho Header biết để nó tự động cập nhật Avatar ngay lập tức!
-      window.dispatchEvent(new Event('storage'));
-
-     // 3. Thông báo và chuyển hướng
-      alert('Đăng nhập thành công!');
-      router.push(PUBLIC_PATH.HOME); 
-      
-    } catch (error: any) {
-      if (error.response) {
-        const statusCode = error.response.status; 
-        const errorMessage = error.response.data; 
-        
-        setErrorMsg(`Lỗi ${statusCode}: ${errorMessage}`);
-      } else {
-        setErrorMsg('Lỗi kết nối đến máy chủ!');
-      }
-    }
-  };
-
-  const handleForgotPasswordSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert("Tính năng khôi phục mật khẩu tự động đang được bảo trì.\nVui lòng liên hệ Hotline: 0961.05.10.14 hoặc Email: info@cybersoft.edu.vn để được Admin cấp lại mật khẩu!");
-    setIsForgotPasswordOpen(false);
-    setForgotEmail('');
-  };
+  const {
+    formData,
+    errorMsg,
+    isForgotPasswordOpen,
+    forgotEmail,
+    setIsForgotPasswordOpen,
+    setForgotEmail,
+    handleChange,
+    handleSubmit,
+    handleForgotPasswordSubmit,
+  } = useSignIn();
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-slate-50 font-sans relative">
@@ -68,7 +29,7 @@ export default function SigninPage() {
         
         {errorMsg && (
           <div className="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm font-medium flex items-center gap-2">
-            <svg xmlns="http:ww.w3.org/2000/svg" className="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
             </svg>
             {errorMsg}
@@ -175,4 +136,3 @@ export default function SigninPage() {
     </div>
   );
 }
-

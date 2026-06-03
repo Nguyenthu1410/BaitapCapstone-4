@@ -42,7 +42,6 @@ export const useCourseDetail = (maKhoaHoc: string) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     
-    // --- THÊM STATE QUẢN LÝ ĐĂNG KÝ VÀ HỌC VIÊN ---
     const [studentCount, setStudentCount] = useState(0);
     const [isRegistering, setIsRegistering] = useState(false);
     
@@ -55,7 +54,6 @@ export const useCourseDetail = (maKhoaHoc: string) => {
                 setLoading(true);
                 const data = await courseService.getDetail(maKhoaHoc);
                 setCourse(data);
-                // Khởi tạo số lượng học viên từ data API trả về
                 setStudentCount(data?.soLuongHocVien || 0);
             } catch (error) {
                 setError('Không thể tải thông tin khóa học.');

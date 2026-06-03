@@ -1,132 +1,132 @@
 "use client";
 
-import React, { useState } from "react";
-import { Table, Button, Input, Tag, Space, Avatar, Tooltip } from "antd";
-import { 
-  Search, 
-  Plus, 
-  Edit, 
-  Trash2, 
-  UserCog, 
-  Mail,
-  ShieldAlert
-} from "lucide-react";
-
-// Dữ liệu mẫu (Mock Data)
-const mockUsers = [
-  {
-    key: "1",
-    name: "Nguyễn Anh Thư",
-    email: "anhthu@example.com",
-    role: "Quản trị viên",
-    status: "active",
-    avatar: "T",
-  },
-  {
-    key: "2",
-    name: "Trần Văn A",
-    email: "tranvana@example.com",
-    role: "Học viên",
-    status: "active",
-    avatar: "A",
-  },
-  {
-    key: "3",
-    name: "Lê Thị B",
-    email: "lethib@example.com",
-    role: "Giảng viên",
-    status: "inactive",
-    avatar: "B",
-  },
-  {
-    key: "4",
-    name: "Phạm Văn C",
-    email: "phamvanc@example.com",
-    role: "Học viên",
-    status: "active",
-    avatar: "C",
-  },
-];
+import React, { useState, useEffect } from "react";
+import { Table, Button, Input, Tag, Space, Avatar, Tooltip, Popconfirm, Select } from "antd";
+import { Search, Plus, Edit, Trash2, UserCog, Mail, ShieldAlert, Filter } from "lucide-react";
+import AddUserModal from "./components/AddUserModal"; 
+import EditUserModal from "./components/EditUserModal"; 
+import { useAdminUser } from "@/src/hook/admin/useAdminUsers";
 
 export default function UserManagementPage() {
-  const [searchText, setSearchText] = useState("");
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [editingUser, setEditingUser] = useState<any>(null);
+  
+  const [inputValue, setInputValue] = useState("");
+  
+  // STATE MỚI: Dành cho bộ lọc danh mục (Tất cả / Học viên / Giáo vụ)
+  const [roleFilter, setRoleFilter] = useState("ALL");
+  
+  const { 
+    users, 
+    userTypes, 
+    isLoading, 
+    page,
+    pageSize,
+    totalCount,
+    setPage,
+    setPageSize,
+    setSearchKeyword,
+    handleAddUser, 
+    handleDeleteUser, 
+    handleUpdateUser 
+  } = useAdminUser(); 
 
-  // Định nghĩa các cột cho bảng
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      setSearchKeyword(inputValue);
+      setPage(1); 
+    }, 500); 
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [inputValue, setSearchKeyword, setPage]);
+
+  // LOGIC LỌC DANH MỤC: Chặn dữ liệu trước khi đưa vào bảng
+  const displayUsers = users.filter((user) => {
+    if (roleFilter === "ALL") return true; // Nếu chọn "Tất cả" thì giữ nguyên
+    return user.maLoaiNguoiDung === roleFilter; // Nếu chọn HV/GV thì chỉ lấy đúng loại đó
+  });
+
   const columns = [
     {
       title: "Người dùng",
-      dataIndex: "name",
-      key: "name",
-      render: (text: string, record: any) => (
-        <div className="flex items-center gap-3">
-          <Avatar className="bg-blue-500 text-white font-semibold">
-            {record.avatar}
-          </Avatar>
-          <div>
-            <div className="font-semibold text-gray-800">{text}</div>
-            <div className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
-              <Mail size={12} />
-              {record.email}
+      key: "user",
+      render: (text: string, record: any) => {
+        const initial = record.hoTen ? record.hoTen.charAt(0).toUpperCase() : "U";
+        return (
+          <div className="flex items-center gap-3">
+            <Avatar className="bg-blue-500 text-white font-semibold">
+              {initial}
+            </Avatar>
+            <div>
+              <div className="font-semibold text-gray-800">{record.hoTen}</div>
+              <div className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
+                <Mail size={12} />
+                {record.email}
+              </div>
             </div>
           </div>
-        </div>
-      ),
+        );
+      },
+    },
+    {
+      title: "Tài khoản",
+      dataIndex: "taiKhoan",
+      key: "taiKhoan",
+      render: (text: string) => <span className="font-medium text-gray-600">{text}</span>
+    },
+    {
+      title: "Số điện thoại",
+      dataIndex: "soDT", 
+      key: "soDT",
     },
     {
       title: "Vai trò",
-      dataIndex: "role",
+      dataIndex: "maLoaiNguoiDung",
       key: "role",
       render: (role: string) => {
-        let color = "blue";
-        if (role === "Quản trị viên") color = "volcano";
-        if (role === "Giảng viên") color = "purple";
+        const isGV = role === "GV";
         return (
-          <Tag color={color} className="rounded-md px-2 py-1 border-transparent font-medium">
-            {role}
+          <Tag color={isGV ? "volcano" : "blue"} className="rounded-md px-2 py-1 border-transparent font-medium">
+            {isGV ? "Giáo vụ" : "Học viên"}
           </Tag>
         );
       },
     },
     {
-      title: "Trạng thái",
-      dataIndex: "status",
-      key: "status",
-      render: (status: string) => (
-        <Tag 
-          color={status === "active" ? "success" : "error"}
-          className="rounded-full px-3"
-        >
-          {status === "active" ? "Hoạt động" : "Đã khóa"}
-        </Tag>
-      ),
-    },
-    {
       title: "Hành động",
       key: "actions",
-      render: () => (
+      align: "right" as const,
+      render: (text: string, record: any) => (
         <Space size="middle">
           <Tooltip title="Chỉnh sửa">
             <Button 
               type="text" 
               icon={<Edit size={18} className="text-blue-500" />} 
               className="hover:bg-blue-50 flex items-center justify-center"
+              onClick={() => {
+                setEditingUser(record); 
+                setIsEditModalVisible(true); 
+              }}
             />
           </Tooltip>
-          <Tooltip title="Phân quyền">
-            <Button 
-              type="text" 
-              icon={<ShieldAlert size={18} className="text-orange-500" />} 
-              className="hover:bg-orange-50 flex items-center justify-center"
-            />
+
+          <Tooltip title="Ghi danh khóa học">
+            <Button type="text" icon={<ShieldAlert size={18} className="text-orange-500" />} className="hover:bg-orange-50 flex items-center justify-center"/>
           </Tooltip>
-          <Tooltip title="Xóa">
-            <Button 
-              type="text" 
-              danger 
-              icon={<Trash2 size={18} />} 
-              className="hover:bg-red-50 flex items-center justify-center"
-            />
-          </Tooltip>
+          
+          <Popconfirm
+            title="Xóa tài khoản này?"
+            description={`Bạn có chắc muốn xóa tài khoản "${record.taiKhoan}" không?`}
+            onConfirm={() => handleDeleteUser(record.taiKhoan)} 
+            okText="Xóa luôn"
+            cancelText="Hủy"
+            okButtonProps={{ danger: true }} 
+          >
+            <Tooltip title="Xóa">
+              <Button type="text" danger icon={<Trash2 size={18} />} className="hover:bg-red-50 flex items-center justify-center"/>
+            </Tooltip>
+          </Popconfirm>
         </Space>
       ),
     },
@@ -134,7 +134,6 @@ export default function UserManagementPage() {
 
   return (
     <div className="p-6 flex flex-col gap-6 bg-[#f5f7fa] min-h-full">
-      {/* Tiêu đề trang */}
       <div className="flex items-center gap-3">
         <div className="bg-blue-100 p-2 rounded-lg">
           <UserCog size={24} className="text-blue-600" />
@@ -145,42 +144,89 @@ export default function UserManagementPage() {
         </div>
       </div>
 
-      {/* Khu vực bảng dữ liệu */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        {/* Thanh công cụ (Toolbar) */}
         <div className="p-5 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <Input
-            placeholder="Tìm kiếm theo tên, email..."
-            prefix={<Search size={16} className="text-gray-400" />}
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            className="w-full sm:max-w-xs rounded-lg hover:border-blue-400 focus:border-blue-500"
-            size="large"
-          />
+          
+          <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4 flex-1">
+            {/* 1. Ô TÌM KIẾM */}
+            <Input
+              placeholder="Gõ tên hoặc tài khoản để tìm ngay..."
+              prefix={<Search size={16} className="text-gray-400" />}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              allowClear
+              size="large"
+              className="w-full sm:max-w-xs hover:border-blue-400 focus:border-blue-500 rounded-lg"
+            />
+
+            {/* 2. BỘ LỌC DANH MỤC (HV/GV) */}
+            <Select
+              size="large"
+              value={roleFilter}
+              onChange={(value) => setRoleFilter(value)}
+              className="w-full sm:w-48"
+              options={[
+                { value: "ALL", label: <span className="flex items-center gap-2"><Filter size={16}/> Tất cả vai trò</span> },
+                { value: "HV", label: "Chỉ Học viên" },
+                { value: "GV", label: "Chỉ Giáo vụ" },
+              ]}
+            />
+          </div>
+
+          {/* 3. NÚT THÊM NGƯỜI DÙNG */}
           <Button 
             type="primary" 
             size="large"
             icon={<Plus size={18} />} 
             className="bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center w-full sm:w-auto"
+            onClick={() => setIsAddModalVisible(true)}
           >
             Thêm người dùng
           </Button>
         </div>
 
-        {/* Bảng (Table) */}
         <div className="p-5">
           <Table 
             columns={columns} 
-            dataSource={mockUsers} 
+            dataSource={displayUsers} // ĐÃ THAY BẰNG DỮ LIỆU ĐÃ LỌC
+            loading={isLoading} 
+            rowKey="taiKhoan" 
             pagination={{ 
-              pageSize: 5,
+              current: page,
+              pageSize: pageSize,
+              total: totalCount,
               showSizeChanger: true,
-              showTotal: (total) => `Tổng số ${total} người dùng`
+              pageSizeOptions: ["5", "10", "20", "50"],
+              onChange: (current, size) => {
+                setPage(current);
+                setPageSize(size);
+              },
+              showTotal: (total) => `Tổng số ${total} kết quả`
             }} 
             className="border border-gray-100 rounded-lg overflow-hidden [&_.ant-table-thead_th]:bg-gray-50 [&_.ant-table-thead_th]:text-gray-600 [&_.ant-table-thead_th]:font-semibold"
           />
         </div>
       </div>
+
+      <AddUserModal 
+        isOpen={isAddModalVisible} 
+        onClose={() => setIsAddModalVisible(false)}
+        isSubmitting={isLoading}
+        onAdd={handleAddUser}
+        userTypes={userTypes}
+      />
+
+      <EditUserModal
+        isOpen={isEditModalVisible}
+        onClose={() => {
+          setIsEditModalVisible(false);
+          setEditingUser(null);
+        }}
+        isSubmitting={isLoading}
+        onUpdate={handleUpdateUser}
+        userTypes={userTypes}
+        editingUser={editingUser}
+      />
     </div>
   );
 }

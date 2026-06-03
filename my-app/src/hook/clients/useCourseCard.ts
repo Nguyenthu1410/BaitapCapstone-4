@@ -8,18 +8,15 @@ export const useCourseCard = (course: Course | undefined) => {
     const router = useRouter();
     const safeMaKhoaHoc = course?.maKhoaHoc?.trim();
     
-    // State
     const [localStudents, setLocalStudents] = useState(0);
     const [isRegistering, setIsRegistering] = useState(false);
 
-    // Đồng bộ số lượng học viên từ Props vào state
     useEffect(() => {
         if (course?.soLuongHocVien !== undefined) {
             setLocalStudents(course.soLuongHocVien);
         }
     }, [course]);
 
-    // Logic đăng ký
     const handleRegister = async (e: React.MouseEvent) => {
         e.preventDefault(); 
 
@@ -40,7 +37,6 @@ export const useCourseCard = (course: Course | undefined) => {
             const message = await courseService.dangKyKhoaHoc(safeMaKhoaHoc);
             alert(message); 
             
-            // Tăng số lượng hiển thị trên card lên 1
             setLocalStudents(prev => prev + 1);
 
         } catch (error: any) {

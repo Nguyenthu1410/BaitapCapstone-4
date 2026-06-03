@@ -29,12 +29,36 @@ export const ENDPOINTS = {
   HUY_GHI_DANH: `${BASE_URL}/QuanLyKhoaHoc/HuyGhiDanh`,
 
   // ADMIN
+
   // Users
   DANH_SACH_NGUOI_DUNG: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachNguoiDung`,
 
+  LAY_DANH_SACH_NGUOI_DUNG_CHUA_GHI_DANH_VAO_KHOA_HOC: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh`,
+
+  LAY_DANH_SACH_KHOA_HOC_CHUA_GHI_DANH: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh`,
+
+  LAY_DANH_SACH_NGUOI_DUNG_DA_GHI_DANH_VAO_KHOA_HOC: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`,
+
+  LAY_DANH_SACH_HOC_VIEN_CHO_XET_DUYET: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet`,
+
+  LAY_DANH_SACH_HOC_VIEN_DA_XET_DUYET: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet`,
+
+  LAY_DANH_SACH_HOC_VIEN_DA_THAM_GIA_KHOA_HOC: `${BASE_URL}/QuanLyKhoaHoc/LayDanhSachKhoaHoc`,
+
+  LAY_DANH_SACH_HOC_VIEN_KHOA_HOC: `${BASE_URL}/QuanLyKhoaHoc/LayDanhSachKhoaHoc`,
+
+  LAY_DANH_SACH_NGUOI_DUNG_PHAN_TRANG: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachNguoiDung_PhanTrang`,
+
   LAY_LOAI_NGUOI_DUNG: `${BASE_URL}/QuanLyNguoiDung/LayDanhSachLoaiNguoiDung`,
 
+  TIM_KIEM_NGUOI_DUNG:`${BASE_URL}/QuanLyNguoiDung/TimKiemNguoiDung`,
+
   THEM_NGUOI_DUNG: `${BASE_URL}/QuanLyNguoiDung/ThemNguoiDung`,
+
+  CAP_NHAT_THONG_TIN_NGUOI_DUNG: `${BASE_URL}/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
+
+  XOA_NGUOI_DUNG: `${BASE_URL}/QuanLyNguoiDung/XoaNguoiDung`,
+
 
   // Courses
   THEM_KHOA_HOC: `${BASE_URL}/QuanLyKhoaHoc/ThemKhoaHoc`,
@@ -49,6 +73,9 @@ export const ENDPOINTS = {
 
   UPLOAD_HINH_ANH_KHOA_HOC: `${BASE_URL}/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc`,
 
-  XOA_KHOA_HOC: `${BASE_URL}/QuanLyKhoaHoc/XoaKhoaHoc`
+  XOA_KHOA_HOC: `${BASE_URL}/QuanLyKhoaHoc/XoaKhoaHoc`,
+
+  GHI_DANH_KHOA_HOC: `${BASE_URL}/QuanLyKhoaHoc/GhiDanhKhoaHoc`,
+
 };
 

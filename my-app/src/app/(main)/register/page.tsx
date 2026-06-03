@@ -1,44 +1,17 @@
 "use client";
 import React from "react";
-import { authServices } from "@/src/services/authServices";
-import { RegisterForm } from "@/src/types/course";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react"; 
+import { useRegister } from "@/src/hook/clients/useRegister";
 
 export default function RegisterPage() {
-  const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterForm>({
-    mode: "onChange",
-    defaultValues: {
-      maNhom: "GP01",
-      maLoaiNguoiDung: "HV",
-    },
-  });
-
-  const onSubmit = async (data: RegisterForm) => {
-    try {
-      const result = await authServices.register(data);
-      console.log("Dữ liệu trả về:", result.data);
-      alert("Đăng ký thành công!");
-      router.push("/signIn");
-    } catch (error: any) {
-      if (error.response) {
-        const errorData = error.response.data;
-        const status = error.response.status;
-
-        console.error(`Lỗi ${status}:`, errorData);
-        alert(
-          `Đăng ký thất bại: ${errorData || "Vui lòng kiểm tra lại thông tin"}`,
-        );
-      } else {
-        alert("Có lỗi xảy ra, vui lòng thử lại sau.");
-      }
-    }
-  };
+  const { 
+    register, 
+    handleSubmit, 
+    errors, 
+    showPassword, 
+    setShowPassword, 
+    onSubmit 
+  } = useRegister();
 
   return (
     <div className="max-w-md mx-auto my-10 p-8 bg-slate-50 rounded-xl shadow-lg border border-gray-200">
@@ -57,30 +30,41 @@ export default function RegisterPage() {
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
           />
           {errors.taiKhoan && (
-            <p className="text-red-500 text-xs">{errors.taiKhoan.message}</p>
+            <p className="text-red-500 text-xs mt-1">{errors.taiKhoan.message}</p>
           )}
         </div>
 
-        {/* MẬT KHẨU */}
+        {/* MẬT KHẨU CÓ NÚT ẨN/HIỆN */}
         <div>
-          <input
-            type="password"
-            {...register("matKhau", {
-              required: "Mật khẩu không được để trống",
-              minLength: {
-                value: 8,
-                message: "Mật khẩu phải có ít nhất 8 ký tự",
-              },
-              pattern: {
-                value:
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                message:
-                  "Mật khẩu cần có chữ hoa, chữ thường, số và ký tự đặc biệt",
-              },
-            })}
-            placeholder="Mật khẩu (Ít nhất 8 ký tự)"
-            className={`w-full p-3 border rounded-lg ${errors.matKhau ? "border-red-500" : "border-gray-300"}`}
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              {...register("matKhau", {
+                required: "Mật khẩu không được để trống",
+                minLength: {
+                  value: 8,
+                  message: "Mật khẩu phải có ít nhất 8 ký tự",
+                },
+                pattern: {
+                  value:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  message:
+                    "Mật khẩu cần có chữ hoa, chữ thường, số và ký tự đặc biệt",
+                },
+              })}
+              placeholder="Mật khẩu (Ít nhất 8 ký tự)"
+              className={`w-full p-3 pr-12 border rounded-lg ${errors.matKhau ? "border-red-500" : "border-gray-300"}`}
+            />
+            
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+          
           {errors.matKhau && (
             <p className="text-red-500 text-xs mt-1">
               {errors.matKhau.message}
@@ -110,7 +94,7 @@ export default function RegisterPage() {
               required: "Email không được để trống",
               pattern: {
                 value: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
-                message:''
+                message: "Email không đúng định dạng (VD: abc@gmail.com)" 
               },
             })}
             placeholder="Email (@gmail.com)"
@@ -138,7 +122,22 @@ export default function RegisterPage() {
             <p className="text-red-500 text-xs mt-1">{errors.soDT.message}</p>
           )}
         </div>
-        <input type="hidden" {...register("maLoaiNguoiDung")} />
+
+        {/* PHÂN LOẠI NGƯỜI DÙNG */}
+        <div>
+          <select
+            {...register("maLoaiNguoiDung", {
+              required: "Vui lòng chọn loại người dùng",
+            })}
+            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none border-gray-300 bg-white"
+          >
+            <option value="HV">Học viên</option>
+            <option value="GV">Giáo vụ</option>
+          </select>
+          {errors.maLoaiNguoiDung && (
+            <p className="text-red-500 text-xs mt-1">{errors.maLoaiNguoiDung.message}</p>
+          )}
+        </div>
 
         <button
           type="submit"

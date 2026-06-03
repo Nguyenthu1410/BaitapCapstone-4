@@ -105,3 +105,32 @@ export interface AddCourseModalProps {
 }
 
 export type UploadMode = 'THEM' | 'CAP_NHAT' | 'CHI_DOI_ANH';
+
+export interface UserPayload {
+  taiKhoan: string;
+  matKhau: string;
+  hoTen: string;
+  soDT: string; 
+  maLoaiNguoiDung: string;
+  maNhom: string;
+  email: string;
+}
+
+export interface UserTypeOption {
+  maLoaiNguoiDung: string;
+  tenLoaiNguoiDung: string;
+}
+
+export interface AddUserModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  isSubmitting: boolean;
+  onAdd: (values: Omit<UserPayload, "maNhom">) => Promise<boolean>; 
+  userTypes: UserTypeOption[];
+}
+
+export interface EnrollUserModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  course: any; 
+}

@@ -21,5 +21,6 @@ export const ADMIN_MENU_ITEMS = [
   { key: "/admin", icon: LayoutDashboard, label: "Dashboard" },
   { key: "/admin/users", icon: Users, label: "Quản lý người dùng" },
   { key: "/admin/courses", icon: BookOpen, label: "Quản lý khóa học" },
+  { key: "/admin/profile", icon: Users, label: "Hồ sơ cá nhân" },
   { key: "/comingSoonPage", icon: Settings, label: "Cài đặt" },
 ];

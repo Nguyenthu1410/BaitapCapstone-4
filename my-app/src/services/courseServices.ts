@@ -6,29 +6,34 @@ const TOKEN_CYBERSOFT =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA4OCIsIkhldEhhblN0cmluZyI6IjIwLzA5LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc4OTg2MjQwMDAwMCIsIm5iZiI6MTc2MDAyOTIwMCwiZXhwIjoxNzkwMDEwMDAwfQ.EeWR303-_B1UvS0JNqgB9-oekCYMonI_KPT2LceiOb8";
 
 export const courseService = {
+  // LẤY DANH SÁCH KHÓA HỌC
   getList: (tenKhoaHoc: string = "") =>
     fetcher<Course[]>(ENDPOINTS.LAY_DANH_SACH_KHOA_HOC, {
       MaNhom: MA_NHOM,
       ...(tenKhoaHoc.trim() ? { tenKhoaHoc: tenKhoaHoc.trim() } : {}),
     }),
-
+  
+  // LẤY DANH SÁCH KHÓA HỌC THEO DANH MỤC
   getCoursesByCategory: (maDanhMuc: string) =>
     fetcher<Course[]>(ENDPOINTS.LAY_KHOA_HOC_THEO_DANH_MUC, {
       maDanhMuc,
       MaNhom: MA_NHOM,
     }),
 
+  // LẤY THÔNG TIN KHÓA HỌC 
   getDetail: (maKhoaHoc: string) => {
     return fetcher<Course>(ENDPOINTS.LAY_THONG_TIN_KHOA_HOC, {
       maKhoaHoc: maKhoaHoc.trim(),
     });
   },
 
+  // LẤY DANH MỤC KHÓA HỌC 
   getCategories: () => {
     const url = `${ENDPOINTS.LAY_DANH_MUC_KHOA_HOC}`;
     return fetcher<any[]>(url);
   },
 
+  // LẤY DANH SÁCH KHÓA HỌC PHÂN TRANG
   getCoursesPaginated: (
     page: number,
     pageSize: number,
@@ -45,6 +50,7 @@ export const courseService = {
     );
   },
 
+  // ĐĂNG KÝ KHÓA HỌC 
   dangKyKhoaHoc: async (maKhoaHoc: string) => {
     const userString = localStorage.getItem("userLogin");
 
@@ -75,6 +81,7 @@ export const courseService = {
     return res.text();
   },
 
+  // HỦY GHI DANH
   huyGhiDanh: async (maKhoaHoc: string) => {
     const user = JSON.parse(localStorage.getItem("userLogin") || "{}");
     const res = await fetch(ENDPOINTS.HUY_GHI_DANH, {
@@ -97,6 +104,7 @@ export const courseService = {
     return res.text();
   },
 
+  // THÊM KHÓA HỌC 
   themKhoaHoc: async (payload: CoursePayload) => {
     const userString = localStorage.getItem("userLogin");
     if (!userString) {
@@ -131,6 +139,7 @@ export const courseService = {
     return res.text();
   },
 
+  // CẬP NHẬT KHÓA HỌC
   capNhatKhoaHoc: async (payload: CoursePayload) => {
     const userString = localStorage.getItem("userLogin");
     if (!userString) {
@@ -165,6 +174,7 @@ export const courseService = {
     return res.text();
   },
 
+  // CẬP NHẬT KHÓA HỌC DEMO
   capNhatKhoaHocDemo: async (payload: CoursePayload) => {
     const userString = localStorage.getItem("userLogin");
     if (!userString) throw new Error("Vui lòng đăng nhập!");
@@ -199,6 +209,7 @@ export const courseService = {
     return res.text();
   },
 
+  // XỬ LÝ KHÓA HỌC VỚI HÌNH ẢNH 
   xuLyKhoaHocVoiAnh: async (
     payload: Partial<CoursePayload>,
     mode: "THEM" | "CAP_NHAT" | "CHI_DOI_ANH",
@@ -255,6 +266,7 @@ export const courseService = {
     return res.text();
   },
 
+  // XÓA KHÓA HỌC 
   xoaKhoaHoc: async (maKhoaHoc: string) => {
     const userString = localStorage.getItem("userLogin");
     if (!userString) throw new Error("Vui lòng đăng nhập!");
@@ -281,4 +293,5 @@ export const courseService = {
 
     return res.text();
   },
+
 };

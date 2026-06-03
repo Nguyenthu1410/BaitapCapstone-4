@@ -4,12 +4,9 @@ import * as React from "react";
 import Link from "next/link";
 import { CourseCardProps } from "../types/course";
 import { LuUsers, LuEye, LuShoppingCart } from "react-icons/lu";
-
-// IMPORT HOOK MỚI TẠO
 import { useCourseCard } from "../hook/clients/useCourseCard"; 
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
-  // GỌI HOOK LẤY RA DATA & LOGIC CẦN THIẾT
   const { localStudents, isRegistering, handleRegister, safeMaKhoaHoc } = useCourseCard(course);
 
   return (
@@ -45,14 +42,12 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
           <div className="flex items-center gap-1">
             <LuUsers size={16} className="text-blue-500" />
-            {/* SỬ DỤNG localStudents TỪ HOOK */}
             <span>{localStudents} học viên</span>
           </div>
         </div>
 
         {/* NÚT TƯƠNG TÁC */}
         <div className="flex gap-2">
-          {/* TRUYỀN SỰ KIỆN handleRegister TỪ HOOK VÀO */}
           <button 
             onClick={handleRegister}
             disabled={isRegistering}
