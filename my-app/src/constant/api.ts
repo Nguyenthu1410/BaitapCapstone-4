@@ -1,4 +1,5 @@
-const BASE_URL = 'https://elearningnew.cybersoft.edu.vn/api';
+// const BASE_URL = 'https://elearningnew.cybersoft.edu.vn/api';
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://elearningnew.cybersoft.edu.vn/api";
 
 export const MA_NHOM = 'GP01';
 

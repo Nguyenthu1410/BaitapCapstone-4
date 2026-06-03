@@ -4,7 +4,7 @@ import { fetcher, poster } from "./apiClients";
 export const userServices = {
   // THÔNG TIN TÀI KHOẢN
   getAccountInfo: (taiKhoan: string) => {
-  return poster(ENDPOINTS.THONG_TIN_TAI_KHOAN, taiKhoan);
+  return poster(ENDPOINTS.THONG_TIN_TAI_KHOAN, taiKhoan as any);
 },
 
   // LẤY DANH SÁCH NGƯỜI DÙNG PHÂN TRANG
