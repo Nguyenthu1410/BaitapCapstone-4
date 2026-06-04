@@ -18,7 +18,7 @@ const CourseList = () => {
     totalCourses,
     categoryLoading,
     categoryError,
-    filteredCourses, 
+    filteredCourses,
   } = useCourseList();
 
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -32,7 +32,7 @@ const CourseList = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentPaginatedCourses = filteredCourses.slice(
     startIndex,
-    startIndex + itemsPerPage
+    startIndex + itemsPerPage,
   );
 
   const handleItemsPerPageChange = (newItemsPerPage: number) => {
@@ -66,7 +66,6 @@ const CourseList = () => {
   return (
     <section className="max-w-7xl mx-auto px-4 py-8 bg-[#f4f7f9]">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-        
         {/* DANH MỤC */}
         <aside className="md:col-span-3 space-y-6">
           <div className="bg-white p-6 shadow-sm border-t-4 border-[#00a2e8] rounded-lg">
@@ -133,7 +132,10 @@ const CourseList = () => {
           {categoryLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3, 4, 5, 6].map((item) => (
-                <div key={item} className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm h-full">
+                <div
+                  key={item}
+                  className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm h-full"
+                >
                   <div className="animate-pulse flex flex-col space-y-4">
                     <div className="h-40 bg-slate-200 rounded-xl w-full"></div>
                     <div className="space-y-2">
@@ -158,9 +160,15 @@ const CourseList = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {currentPaginatedCourses.map((course: Course) => (
+              {/* {currentPaginatedCourses.map((course: Course) => (
                 <CourseCard key={course.maKhoaHoc} course={course} />
-              ))}
+              ))} */}
+
+              {/* SỬA TẠI DÒNG 135: Thêm kiểm tra Array.isArray */}
+              {Array.isArray(currentPaginatedCourses) &&
+                currentPaginatedCourses.map((course: Course) => (
+                  <CourseCard key={course.maKhoaHoc} course={course} />
+                ))}
             </div>
           )}
         </main>
