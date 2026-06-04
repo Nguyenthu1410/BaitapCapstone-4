@@ -1,4 +1,13 @@
+import axios from "axios";
+import { BASE_URL } from "../constant/api";
+
 const TOKEN_CYBERSOFT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA4OCIsIkhldEhhblN0cmluZyI6IjIwLzA5LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc4OTg2MjQwMDAwMCIsIm5iZiI6MTc2MDAyOTIwMCwiZXhwIjoxNzkwMDEwMDAwfQ.EeWR303-_B1UvS0JNqgB9-oekCYMonI_KPT2LceiOb8";
+
+const apiClients = axios.create({
+  // Sử dụng biến BASE_URL đã bọc fallback để chống lỗi undefined gây crash trang
+  baseURL: BASE_URL, 
+  timeout: 10000,
+});
 
 const buildHeaders = (): Record<string, string> => {
   const headers: Record<string, string> = {
